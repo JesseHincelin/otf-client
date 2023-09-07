@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap");
+
+html {
+  font-size: 62.5%;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1350px;
+  padding: 0 var(--container-padding);
+}
+
+body {
+  line-height: 1.618;
+  font-size: calc(1.2rem + 0.6vmin);
+  -webkit-font-smoothing: antialiased;
+
+  .dark {
+    // need to establish a color theme for the dark theme
+    --primary-color: blue;
+    --secondary-color: darkblue;
+    --tertiary-color: darkgrey;
+  }
+
+  .light {
+    // need to establish a color theme for the light theme (by default)
+    --primary-color: green;
+    --secondary-color: darkgreen;
+    --tertiary-color: darkgrey;
+  }
+}
+
+*[class*="adaptative-img"] {
+  position: relative;
+}
+
+*[class*="adaptative-img"] > img {
+  top: 0;
+  left: 0;
+  width: 100%;
+  // height: 100%;
+  position: absolute;
+}
+
+.adaptative-img--cover > img {
+  object-fit: cover;
+}
+
+.adaptative-img--contain > img {
+  object-fit: contain;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}

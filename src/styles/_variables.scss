@@ -1,0 +1,46 @@
+:root {
+  --white: #fff;
+  --grey: #777777;
+  --dark-grey: #000000b3;
+  --black: #000000de;
+  --green: #98eecc;
+  --light-green: #d0f5be;
+  --yellow-pale: #fbffdc;
+  --brown: #a4907c;
+  --red: #ff0000;
+  --dark-red: #cc0000;
+  --purple: #804ffc;
+  --dark-purple: #6e41dc;
+  --blue: #2d70b7;
+  --dark-blue: #21386e;
+  --yellow: #ffcb05;
+  --dark-yellow: #c7a008;
+  --orange: #fdb329;
+  --dark-orange: #f25e00;
+  --boxshadow-color: rgba(0, 0, 0, 0.14);
+  --boxshadow-button: 0 2px 2px 0 rgbas(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12),
+    0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  --boxshadow-button-hover: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -1px rgba(0, 0, 0, 0.2);
+  --boxshadow-basic-colorless: 1px 1px 2px 1px;
+  --border-colorless: 0px 0px 1px 2px;
+  --header-height: 100px;
+  --header-width: 300px;
+  --container-padding: 16px;
+  --input-padding: 4px 16px;
+  --transition-one: all 300ms 200ms ease-in;
+  --transition-two: all 250ms 100ms cubic-bezier(0.29, -0.3, 0.9, 1.51);
+  --small-radius: 8px;
+  --radius: 16px;
+  --big-radius: 24px;
+  --asym-radius: 24px 8px;
+  --asym-radius-reverse: 8px 24px;
+  --tiny-font: calc(0.8rem + 0.6vmin);
+  --small-font: calc(1rem + 0.6vmin);
+  --medium-font: calc(1.2rem + 0.6vmin);
+  --big-font: calc(1.4rem + 0.6vmin);
+  --huge-font: calc(2rem + 0.6vmin);
+  --text-shadow-white: 1px 1px 1px white;
+  --text-shadow-black: 1px 1px 1px black;
+  --text-shadow-colorless: 1px 1px 1px;
+}

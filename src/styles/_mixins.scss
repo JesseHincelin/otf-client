@@ -1,0 +1,59 @@
+@mixin flex($direction: "row", $wrap: "wrap") {
+  display: flex;
+  flex-direction: #{$direction};
+  flex-wrap: #{$wrap};
+}
+
+@mixin grow($val: 1) {
+  flex-grow: #{$val};
+  flex-shrink: 0;
+  flex-basis: 0;
+}
+// @mixin button {
+//   color: var(--white);
+//   border-radius: 4px;
+//   text-align: center;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   box-shadow: var(--boxshadow-button);
+//   transition: var(--transition-one);
+// }
+
+@mixin input {
+  border: none;
+  border-radius: var(--small-radius);
+  background: var(--light-blue);
+  padding: var(--input-padding);
+}
+
+@mixin popup {
+  border: none;
+  border-radius: var(--big-radius);
+  text-shadow: var(--text-shadow-white);
+  background: var(--yellow);
+  box-shadow: 0px 0px 0px 5px var(--blue), 1px 1px 0px 5px var(--dark-blue),
+    inset -1px -1px 1px 2px var(--dark-yellow);
+}
+@mixin button-poke {
+  border: none;
+  border-radius: var(--radius);
+  padding: var(--input-padding);
+  color: var(--black);
+  text-shadow: var(--text-shadow-white);
+  background: var(--yellow);
+  box-shadow: 0px 0px 0px 5px var(--blue), 1px 1px 0px 5px var(--dark-blue),
+    inset -1px -1px 1px 2px var(--dark-yellow);
+  font-size: calc(0.6vmin + 1.2rem);
+  cursor: pointer;
+}
+
+@mixin button-popup {
+  border: none;
+  border-radius: var(--radius);
+  padding: var(--input-padding);
+  color: var(--white);
+  background: var(--blue);
+  box-shadow: 0px 0px 0px 5px var(--blue), 1px 1px 0px 5px var(--dark-blue);
+  font-size: calc(0.6vmin + 1.2rem);
+  cursor: pointer;
+}
