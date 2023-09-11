@@ -18,16 +18,18 @@ body {
 
   .dark {
     // need to establish a color theme for the dark theme
-    --primary-color: blue;
-    --secondary-color: darkblue;
-    --tertiary-color: darkgrey;
+    --primary-color: ;
+    --secondary-color: ;
+    --tertiary-color: ;
+    --background-color: rgb(36, 34, 34);
   }
 
   .light {
     // need to establish a color theme for the light theme (by default)
-    --primary-color: green;
-    --secondary-color: darkgreen;
-    --tertiary-color: darkgrey;
+    --primary-color: #102c57;
+    --secondary-color: ;
+    --tertiary-color: ;
+    --background-color: rgb(221, 221, 221);
   }
 }
 

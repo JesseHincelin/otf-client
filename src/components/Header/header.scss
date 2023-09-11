@@ -1,0 +1,43 @@
+@use "../../styles/mixins" as mxn;
+
+.header {
+  @include mxn.flex;
+  justify-content: flex-start;
+  background: #102c57;
+  padding: 16px;
+
+  &__title {
+    @include mxn.flex(column);
+    line-height: 1;
+    color: white;
+    align-items: center;
+    &--first {
+      font-size: calc(3.2rem + 0.6vmin);
+    }
+    &--second {
+      font-size: var(--medium-font);
+      font-style: italic;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -170%;
+        height: 1px;
+        width: 150%;
+        border-radius: 5px;
+        background: white;
+      }
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 120%;
+        height: 1px;
+        width: 150%;
+        border-radius: 5px;
+        background: white;
+      }
+    }
+  }
+}

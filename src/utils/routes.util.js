@@ -1,5 +1,5 @@
 export const ROUTES = {
   signUp: "sign-up",
-  signIn: "sign-in",
+  login: "login",
   dashboard: "dashboard",
 };

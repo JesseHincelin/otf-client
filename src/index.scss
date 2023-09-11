@@ -1,3 +1,25 @@
 @use "./styles/gardevoir";
 @use "./styles/global";
 @use "./styles/variables";
+
+#root > .app {
+  line-height: 1.618;
+  font-size: calc(1.2rem + 0.6vmin);
+  -webkit-font-smoothing: antialiased;
+
+  .dark {
+    // need to establish a color theme for the dark theme
+    --primary-color: ;
+    --secondary-color: ;
+    --tertiary-color: ;
+    --background-color: rgb(36, 34, 34);
+  }
+
+  .light {
+    // need to establish a color theme for the light theme (by default)
+    --primary-color: #102c57;
+    --secondary-color: ;
+    --tertiary-color: ;
+    --background-color: rgb(221, 221, 221);
+  }
+}

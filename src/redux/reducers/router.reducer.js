@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ROUTES } from "../../utils/routes.util";
 
 const ROUTER_STATE = {
-  currentRoute: ROUTES.signUp,
+  currentRoute: ROUTES.login,
 };
 
 const routerSlice = createSlice({
