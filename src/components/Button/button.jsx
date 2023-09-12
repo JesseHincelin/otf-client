@@ -1,7 +1,7 @@
 import "./button.scss";
 
 const Button = (props) => {
-  const { type, handleButtonClick, className, content } = props;
+  const { type, handleButtonClick, className, disabled, content } = props;
 
   const handleClick = () => {
     if (!handleButtonClick) return;
@@ -13,6 +13,7 @@ const Button = (props) => {
       type={type || "button"}
       onClick={handleClick}
       className={`button ${className || ""}`}
+      disabled={!!disabled}
     >
       {content || "button"}
     </button>

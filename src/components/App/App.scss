@@ -1,1 +1,30 @@
+@use "../../styles/mixins" as mxn;
 
+.admin {
+  @include mxn.flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.box {
+  @include mxn.box;
+
+  & > form {
+    @include mxn.flex(column);
+    gap: 24px;
+    padding: 16px;
+
+    & > ul {
+      @include mxn.flex(column);
+      gap: 8px;
+      & > li > div {
+        @include mxn.flex(column);
+        gap: 8px;
+      }
+    }
+    & button {
+      align-self: center;
+    }
+  }
+}

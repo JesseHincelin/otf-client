@@ -3,6 +3,7 @@ import routerReducer from "./reducers/router.reducer";
 import userReducer from "./reducers/user.reducer";
 import adminReducer from "./reducers/admin.reducer";
 import loginReducer from "./reducers/login.reducer";
+import newPasswordReducer from "./reducers/new-password.reducer";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     userState: userReducer,
     adminState: adminReducer,
     loginState: loginReducer,
+    newPasswordState: newPasswordReducer,
   },
 });
 

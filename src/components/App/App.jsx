@@ -3,6 +3,8 @@ import Header from "../Header/header";
 import "./App.scss";
 import Login from "../Login/login";
 import { ROUTES } from "../../utils/routes.util";
+import AdminDashboard from "../components-admin/Admin-dashboard/admin-dashboard";
+import ChangePassword from "../Change-password/change-password";
 
 const App = () => {
   const { currentRoute } = useSelector((store) => store.routerState);
@@ -11,6 +13,13 @@ const App = () => {
     switch (currentRoute) {
       case ROUTES.login:
         return <Login />;
+      case ROUTES.dashboard:
+        return; //indicate the component dashboard
+      case ROUTES.adminDashboard:
+        return <AdminDashboard />;
+      case ROUTES.changePassword:
+        console.log("route change password");
+        return <ChangePassword />;
       default:
         return null;
     }
