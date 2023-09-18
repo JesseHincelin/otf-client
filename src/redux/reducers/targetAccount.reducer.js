@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const DELETE_ACCOUNT_STATE = {
+const TARGET_ACCOUNT_STATE = {
   error: null,
   loading: false,
   userNameValue: "",
   domainValue: "",
 };
 
-const getInitialState = () => DELETE_ACCOUNT_STATE;
+const getInitialState = () => TARGET_ACCOUNT_STATE;
 
-const deleteAccountSlice = createSlice({
-  name: "deleteAccount",
+const targetAccountSlice = createSlice({
+  name: "targetAccount",
   initialState: getInitialState(),
   reducers: {
     handleFieldChange: (state, action) => {
@@ -18,8 +18,8 @@ const deleteAccountSlice = createSlice({
 
       return { ...state, [props]: value };
     },
-    resetDeleteAccount: () => getInitialState(),
-    setDeleteAccountError: (state, action) => {
+    resetTargetAccount: () => getInitialState(),
+    setTargetAccountError: (state, action) => {
       const payload = action.payload;
 
       return { ...state, loading: false, error: payload.error };
@@ -30,6 +30,6 @@ const deleteAccountSlice = createSlice({
   },
 });
 
-export const { handleFieldChange, resetDeleteAccount, setDeleteAccountError, startLoading } =
-  deleteAccountSlice.actions;
-export default deleteAccountSlice.reducer;
+export const { handleFieldChange, resetTargetAccount, setTargetAccountError, startLoading } =
+  targetAccountSlice.actions;
+export default targetAccountSlice.reducer;

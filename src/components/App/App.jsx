@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { reconnectThunk } from "../../api/login.api";
 import DeleteAccount from "../components-admin/delete-account/delete-acount";
 import { getFromStorage } from "../../utils/global.util";
+import EditAccount from "../components-admin/edit-account/edit-account";
 
 const App = () => {
   const { currentRoute } = useSelector((store) => store.routerState);
@@ -26,6 +27,8 @@ const App = () => {
         return <ChangePassword />;
       case ROUTES.admin.createAccount:
         return <CreateAccount />;
+      case ROUTES.admin.editAccount:
+        return <EditAccount />;
       case ROUTES.admin.deleteAccount:
         return <DeleteAccount />;
       default:

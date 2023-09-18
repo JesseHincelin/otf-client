@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { handleFieldChange } from "../../../redux/reducers/deleteAccount.reducer";
+import { handleFieldChange } from "../../../redux/reducers/targetAccount.reducer";
 import Input from "../../Input/input";
 import Button from "../../Button/button";
 import { deleteAccountThunk } from "../../../api/deleteAccount.api";
@@ -11,10 +11,10 @@ import "./delete-account.scss";
 const DeleteAccount = () => {
   const { error, loading, userNameValue, domainValue, id, userName, role } = useSelector(
     (store) => ({
-      error: store.deleteAccountState.error,
-      loading: store.deleteAccountState.loading,
-      userNameValue: store.deleteAccountState.userNameValue,
-      domainValue: store.deleteAccountState.domainValue,
+      error: store.targetAccountState.error,
+      loading: store.targetAccountState.loading,
+      userNameValue: store.targetAccountState.userNameValue,
+      domainValue: store.targetAccountState.domainValue,
       id: store.targetUserState.id,
       userName: store.targetUserState.userName,
       role: store.targetUserState.role,
@@ -100,7 +100,7 @@ const DeleteAccount = () => {
               />
             </li>
           </ul>
-          {!!error && <span className="error">{error.slice(12)}</span>}
+          {!!error && <span className="error">{error}</span>}
           <Button
             type="submit"
             className="delete__form--button button"

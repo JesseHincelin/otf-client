@@ -18,11 +18,13 @@ const targetUserSlice = createSlice({
   name: "targetUser",
   initialState: getInitialState(),
   reducers: {
+    handleTargetFieldChange: (state, action) => {
+      const { value, props } = action.payload;
+
+      return { ...state, [props]: value };
+    },
     setTargetUser: (state, action) => {
       const user = action.payload.user;
-
-      console.log(action.payload.user);
-
       return {
         ...state,
         error: null,
@@ -36,9 +38,15 @@ const targetUserSlice = createSlice({
         todosAssigned: user.todosAssigned,
       };
     },
+    setTargetUserError: (state, action) => {
+      const payload = action.payload;
+
+      return { ...state, loading: false, error: payload.error };
+    },
     resetTargetUser: () => getInitialState(),
   },
 });
 
-export const { setTargetUser, resetTargetUser } = targetUserSlice.actions;
+export const { setTargetUser, resetTargetUser, setTargetUserError, handleTargetFieldChange } =
+  targetUserSlice.actions;
 export default targetUserSlice.reducer;

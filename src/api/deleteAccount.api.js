@@ -1,14 +1,14 @@
 import {
-  resetDeleteAccount,
-  setDeleteAccountError,
+  resetTargetAccount,
+  setTargetAccountError,
   startLoading,
-} from "../redux/reducers/deleteAccount.reducer";
+} from "../redux/reducers/targetAccount.reducer";
 import { resetTargetUser } from "../redux/reducers/targetUser.reducer";
 import { getFromStorage } from "../utils/global.util";
 import { deleteRequest } from "./requests.api";
 
 export const deleteAccountThunk = () => async (dispatch, getStates) => {
-  const { loading } = getStates().deleteAccountState;
+  const { loading } = getStates().targetAccountState;
   const { id } = getStates().targetUserState;
 
   console.log("id to delete in front reducer :", id);
@@ -19,11 +19,13 @@ export const deleteAccountThunk = () => async (dispatch, getStates) => {
   const response = await deleteRequest(`admin/delete-account/${id}`, getFromStorage("token"));
 
   if (!!response.error) {
-    dispatch(setDeleteAccountError({ error: response.error }));
+    console.log(response.error);
+    dispatch(setTargetAccountError({ error: response.error }));
   }
 
-  if (!!response.result) {
-    dispatch(resetDeleteAccount());
+  if (!!response.result && !!response.result.delete) {
+    console.log(response.result);
+    dispatch(resetTargetAccount());
     dispatch(resetTargetUser());
   }
 };
