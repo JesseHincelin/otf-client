@@ -1,14 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header/header";
 import "./App.scss";
 import Login from "../Login/login";
 import { ROUTES } from "../../utils/routes.util";
 import AdminDashboard from "../components-admin/Admin-dashboard/admin-dashboard";
 import ChangePassword from "../Change-password/change-password";
+import CreateAccount from "../components-admin/create-account/create-account";
+import { useEffect } from "react";
+import { reconnectThunk } from "../../api/login.api";
+import DeleteAccount from "../components-admin/delete-account/delete-acount";
+import { getFromStorage } from "../../utils/global.util";
 
 const App = () => {
   const { currentRoute } = useSelector((store) => store.routerState);
-
+  const dispatch = useDispatch();
   const getCurrentRoute = () => {
     switch (currentRoute) {
       case ROUTES.login:
@@ -18,12 +23,20 @@ const App = () => {
       case ROUTES.adminDashboard:
         return <AdminDashboard />;
       case ROUTES.changePassword:
-        console.log("route change password");
         return <ChangePassword />;
+      case ROUTES.admin.createAccount:
+        return <CreateAccount />;
+      case ROUTES.admin.deleteAccount:
+        return <DeleteAccount />;
       default:
         return null;
     }
   };
+
+  useEffect(() => {
+    if (!getFromStorage("token")) return;
+    dispatch(reconnectThunk());
+  }, []);
 
   return (
     <div className="App light">

@@ -2,6 +2,7 @@ import { startLoading } from "../redux/reducers/login.reducer";
 import { resetNewPassword, setNewPasswordError } from "../redux/reducers/new-password.reducer";
 import { redirect } from "../redux/reducers/router.reducer";
 import { setUser } from "../redux/reducers/user.reducer";
+import { getFromStorage } from "../utils/global.util";
 import { ROUTES } from "../utils/routes.util";
 import { patchRequest } from "./requests.api";
 
@@ -17,10 +18,14 @@ export const changePasswordThunk = () => async (dispatch, getStates) => {
 
   dispatch(startLoading());
 
-  const response = await patchRequest("user/change-password", {
-    password: oldPassValue,
-    newPassword: newPassValue,
-  });
+  const response = await patchRequest(
+    "user/change-password",
+    {
+      password: oldPassValue,
+      newPassword: newPassValue,
+    },
+    getFromStorage("token")
+  );
 
   if (!!response.error) {
     dispatch(setNewPasswordError({ error: response.error }));

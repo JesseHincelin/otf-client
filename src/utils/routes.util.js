@@ -1,18 +1,18 @@
 export const ROUTES = {
   signUp: "sign-up",
-  login: "login",
+  login: "login", // done
   dashboard: "dashboard",
-  adminDashboard: "adminDashboard",
-  changePassword: "changePassword",
+  adminDashboard: "adminDashboard", // done
+  changePassword: "changePassword", // done
   admin: {
-    createAccount: "create-account",
-    deleteAccount: "delete-account",
+    createAccount: "create-account", // done
+    deleteAccount: "delete-account", // done
     editAccount: "edit-account",
     resetPassword: "reset-password",
     createGroupe: "create-groupe",
     deleteGroupe: "delete-groupe",
     editGroupe: "edit-groupe",
-    getAllUserRequest: "get-all-user-request",
-    getAllUserDisplay: "get-all-user-display",
+    getAllUsersRequest: "get-all-user-request",
+    getAllUsersDisplay: "get-all-user-display",
   },
 };

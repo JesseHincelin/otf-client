@@ -4,9 +4,10 @@ import "./change-password.scss";
 import Button from "../Button/button";
 import { handleFieldChange } from "../../redux/reducers/new-password.reducer";
 import "./change-password.scss";
+import { changePasswordThunk } from "../../api/changePassword.api";
 
 const ChangePassword = (props) => {
-  const { loading, oldPassValue, newPassValue, confPassValue } = useSelector(
+  const { error, loading, oldPassValue, newPassValue, confPassValue } = useSelector(
     (store) => store.newPasswordState
   );
 
@@ -18,7 +19,7 @@ const ChangePassword = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // function thunk to change password
+    dispatch(changePasswordThunk());
   };
 
   return (
@@ -66,6 +67,7 @@ const ChangePassword = (props) => {
             />
           </li>
         </ul>
+        {!!error && <span className="error">{error.slice(12)}</span>}
         <Button
           type="submit"
           className="changePassword__form--button"

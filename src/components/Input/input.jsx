@@ -1,8 +1,18 @@
 import "./input.scss";
 
 const Input = (props) => {
-  const { className, id, label, value, type, disabled, required, placeholder, handleInputChange } =
-    props;
+  const {
+    className,
+    id,
+    label,
+    value,
+    type,
+    disabled,
+    required,
+    placeholder,
+    handleInputChange,
+    readOnly,
+  } = props;
 
   return (
     <div className={!className ? "field" : `field ${className}--field`}>
@@ -21,7 +31,8 @@ const Input = (props) => {
         disabled={!!disabled}
         required={!!required}
         placeholder={placeholder || ""}
-        onChange={(e) => handleInputChange(e.target.value)}
+        onChange={!!handleInputChange ? (e) => handleInputChange(e.target.value) : null}
+        readOnly={!!readOnly}
       />
     </div>
   );

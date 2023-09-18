@@ -1,0 +1,29 @@
+@use "../../../styles/mixins" as mxn;
+
+.box {
+  & .create-account__form--password--field {
+    @include mxn.flex;
+    gap: 4px;
+
+    & div {
+      @include mxn.flex(column);
+      flex: 1 0;
+    }
+
+    & span {
+      align-self: flex-end;
+      transform-origin: bottom left;
+      transform: scale(1);
+      transition: var(--transition-one);
+      cursor: pointer;
+
+      & svg {
+        fill: white;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@use "../../../styles/mixins" as mxn;
+
+.admin-dashboard {
+  padding-top: 32px;
+  & > ul {
+    @include mxn.flex;
+    gap: 32px;
+    align-items: center;
+
+    & ul {
+      @include mxn.flex(column);
+      gap: 16px;
+      transition: var(--transition-two);
+
+      & > li:first-child {
+        transform: translateY(110%);
+        transition: var(--transition-two);
+      }
+
+      & > li:nth-child(2) {
+        z-index: 2;
+      }
+
+      & > li:last-child {
+        transform: translateY(-110%);
+        transition: var(--transition-two);
+      }
+
+      &:hover {
+        & > li:first-child {
+          transform: translateY(0);
+        }
+        & > li:last-child {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}

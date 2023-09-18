@@ -1,0 +1,19 @@
+@use "../../../styles/mixins" as mxn;
+
+.tile {
+  @include mxn.flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  min-height: 160px;
+  background: var(--primary-color);
+  padding: 16px;
+  border-radius: var(--big-radius);
+  cursor: pointer;
+  &__name {
+    font-weight: 600;
+    font-size: var(--huge-font);
+    color: var(--background-color);
+    text-transform: uppercase;
+  }
+}

@@ -1,7 +1,8 @@
 button {
   border: none;
-  border-radius: var(--radius);
-  padding: 4px 32px;
+  border-radius: var(--big-radius);
+  padding: 0 40px;
+  line-height: 1.5;
   color: var(--primary-color);
   background: var(--background-color);
   cursor: pointer;

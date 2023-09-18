@@ -6,7 +6,7 @@ import "./login.scss";
 import { loginThunk } from "../../api/login.api";
 
 const Login = (props) => {
-  const { loading, domainValue, userNameValue, passwordValue } = useSelector(
+  const { error, loading, domainValue, userNameValue, passwordValue } = useSelector(
     (store) => store.loginState
   );
 
@@ -18,7 +18,6 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     dispatch(loginThunk());
   };
 
@@ -29,7 +28,6 @@ const Login = (props) => {
         action="login__form box__form"
         onSubmit={handleSubmit}
       >
-        {" "}
         <ul>
           <li>
             <Input
@@ -47,7 +45,7 @@ const Login = (props) => {
               className="login__form--userName"
               id="userName"
               label="User-Name :"
-              value={userNameValue}
+              value={userNameValue.trim()}
               disabled={loading}
               required={true}
               handleInputChange={(value) => handleFormChange(value, "userNameValue")}
@@ -66,6 +64,8 @@ const Login = (props) => {
             />
           </li>
         </ul>
+        {/* .slice(12) */}
+        {!!error && <span className="error">{error}</span>}
         <Button
           type="submit"
           className="login__form--button button"

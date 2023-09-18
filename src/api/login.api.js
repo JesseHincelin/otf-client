@@ -1,9 +1,9 @@
 import { resetLogin, setLoginError, startLoading } from "../redux/reducers/login.reducer";
-import { redirect } from "../redux/reducers/router.reducer";
+import routerReducer, { redirect } from "../redux/reducers/router.reducer";
 import { setUser } from "../redux/reducers/user.reducer";
-import { saveLocalStorage } from "../utils/global.util";
+import { getFromStorage, saveLocalStorage } from "../utils/global.util";
 import { ROUTES } from "../utils/routes.util";
-import { postRequest } from "./requests.api";
+import { getRequest, postRequest } from "./requests.api";
 
 export const loginThunk = () => async (dispatch, getStates) => {
   const { loading, userNameValue, domainValue, passwordValue } = getStates().loginState;
@@ -17,8 +17,8 @@ export const loginThunk = () => async (dispatch, getStates) => {
 
   const response = await postRequest("user/login", {
     password: passwordValue,
-    userName: userNameValue,
-    domain: domainValue,
+    userName: userNameValue.trim(),
+    domain: domainValue.trim(),
   });
 
   if (!!response.error) {
@@ -43,4 +43,33 @@ export const loginThunk = () => async (dispatch, getStates) => {
     }
     dispatch(resetLogin());
   }
+};
+
+export const reconnectThunk = () => async (dispatch, getStates) => {
+  const { currentRoute } = getStates().routerState;
+  const { loading } = getStates().loginState;
+
+  if (loading) return;
+  dispatch(startLoading());
+
+  const response = await getRequest("user/auto-connect", getFromStorage("token"));
+
+  if (!!response.error) {
+    dispatch(redirect({ route: ROUTES.login }));
+  }
+
+  if (!!response.result && !!response.result.user) {
+    const { user } = response.result;
+
+    dispatch(setUser({ user: user }));
+
+    if (currentRoute === ROUTES.login) {
+      if (user.role === "admin" || user.role === "super admin") {
+        dispatch(redirect({ route: ROUTES.adminDashboard }));
+      } else {
+        dispatch(redirect({ route: ROUTES.dashboard }));
+      }
+    }
+  }
+  dispatch(resetLogin());
 };
