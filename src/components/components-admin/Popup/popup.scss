@@ -1,0 +1,28 @@
+@use "../../../styles/mixins" as mxn;
+
+.popup {
+  @include mxn.flex(column);
+  position: absolute;
+  z-index: 20;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--primary-color);
+  padding: 16px 40px;
+  border-radius: var(--big-radius);
+  gap: 16px;
+  &__message {
+    color: var(--white);
+    font-size: var(--big-font);
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  background: var(--dark-grey);
+}

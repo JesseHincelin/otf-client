@@ -7,6 +7,7 @@ import newPasswordReducer from "./reducers/new-password.reducer";
 import createAccountReducer from "./reducers/createAccount.reducer";
 import targetUserReducer from "./reducers/targetUser.reducer";
 import targetAccountReducer from "./reducers/targetAccount.reducer";
+import popupReducer from "./reducers/popup.reducer";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     newPasswordState: newPasswordReducer,
     createAccountState: createAccountReducer,
     targetAccountState: targetAccountReducer,
+    popupState: popupReducer,
   },
 });
 

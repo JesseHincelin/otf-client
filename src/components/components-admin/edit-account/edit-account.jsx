@@ -7,6 +7,8 @@ import { handleFieldChange } from "../../../redux/reducers/targetAccount.reducer
 import { handleTargetFieldChange } from "../../../redux/reducers/targetUser.reducer";
 import { ROLE, ROLE_COMPLETE, TEST_OPTIONS } from "../../../utils/selectOptions.util";
 import Select from "../../Select/select";
+import { editAccountThunk } from "../../../api/editAccount.api";
+import Popup from "../Popup/popup";
 
 const EditAccount = () => {
   const {
@@ -21,6 +23,7 @@ const EditAccount = () => {
     role,
     userDomain,
     userRole,
+    activePopup,
   } = useSelector((store) => ({
     error: store.targetAccountState.error,
     loading: store.targetAccountState.loading,
@@ -33,6 +36,7 @@ const EditAccount = () => {
     role: store.targetUserState.role,
     userDomain: store.userState.domain,
     userRole: store.userState.role,
+    activePopup: store.popupState.activePopup,
   }));
 
   const domainOption = ["Select the domain :", userDomain];
@@ -53,7 +57,7 @@ const EditAccount = () => {
 
   const handleEditSubmit = (event) => {
     event.preventDefault();
-    // dispatch thunk pour edit user
+    dispatch(editAccountThunk());
   };
 
   return (
@@ -109,7 +113,6 @@ const EditAccount = () => {
                 id="userName--target"
                 label="UserName :"
                 value={!!id ? userName : ""}
-                disabled={loading}
                 required={true}
                 disabled={!id ? true : loading ? true : false}
                 handleInputChange={(value) => handleEditFormChange(value, "userName")}
@@ -158,6 +161,7 @@ const EditAccount = () => {
           />
         </form>
       </div>
+      {!!activePopup && <Popup />}
     </div>
   );
 };

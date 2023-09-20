@@ -1,3 +1,4 @@
+import { setMessage } from "../redux/reducers/popup.reducer";
 import {
   resetTargetAccount,
   setTargetAccountError,
@@ -26,6 +27,7 @@ export const deleteAccountThunk = () => async (dispatch, getStates) => {
   if (!!response.result && !!response.result.delete) {
     console.log(response.result);
     dispatch(resetTargetAccount());
+    dispatch(setMessage({ message: response.result.message }));
     dispatch(resetTargetUser());
   }
 };

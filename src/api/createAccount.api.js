@@ -3,6 +3,7 @@ import {
   setCreateAccountError,
   startLoading,
 } from "../redux/reducers/createAccount.reducer";
+import { setMessage } from "../redux/reducers/popup.reducer";
 import { resetTargetUser, setTargetUser } from "../redux/reducers/targetUser.reducer";
 import { getFromStorage } from "../utils/global.util";
 import { postRequest } from "./requests.api";
@@ -32,6 +33,8 @@ export const createAccountThunk = () => async (dispatch, getStates) => {
   }
   if (!!response.result && !!response.result.user) {
     dispatch(setTargetUser({ user: response.result.user }));
+    console.log("find message :", response.result);
+    dispatch(setMessage({ message: response.result.message }));
     dispatch(resetCreateAccount());
   }
 };

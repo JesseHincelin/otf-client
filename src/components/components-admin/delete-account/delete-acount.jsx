@@ -7,10 +7,11 @@ import { searchUserThunk } from "../../../api/searchUser.api";
 import AccountNav from "../account-nav/account-nav";
 import { useEffect } from "react";
 import "./delete-account.scss";
+import Popup from "../Popup/popup";
 
 const DeleteAccount = () => {
-  const { error, loading, userNameValue, domainValue, id, userName, role } = useSelector(
-    (store) => ({
+  const { error, loading, userNameValue, domainValue, id, userName, role, activePopup } =
+    useSelector((store) => ({
       error: store.targetAccountState.error,
       loading: store.targetAccountState.loading,
       userNameValue: store.targetAccountState.userNameValue,
@@ -18,8 +19,8 @@ const DeleteAccount = () => {
       id: store.targetUserState.id,
       userName: store.targetUserState.userName,
       role: store.targetUserState.role,
-    })
-  );
+      activePopup: store.popupState.activePopup,
+    }));
 
   const dispatch = useDispatch();
 
@@ -109,6 +110,7 @@ const DeleteAccount = () => {
           />
         </form>
       </div>
+      {!!activePopup && <Popup />}
     </div>
   );
 };

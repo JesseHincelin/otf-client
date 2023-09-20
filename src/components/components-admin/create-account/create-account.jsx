@@ -8,6 +8,7 @@ import "./create-account.scss";
 import AccountNav from "../account-nav/account-nav";
 import { createAccountThunk } from "../../../api/createAccount.api";
 import { useEffect } from "react";
+import Popup from "../Popup/popup";
 
 const CreateAccount = (props) => {
   const {
@@ -20,6 +21,7 @@ const CreateAccount = (props) => {
     role,
     userRole,
     userDomain,
+    activePopup,
   } = useSelector((store) => ({
     error: store.createAccountState.error,
     loading: store.createAccountState.loading,
@@ -30,6 +32,7 @@ const CreateAccount = (props) => {
     role: store.createAccountState.role,
     userRole: store.userState.role,
     userDomain: store.userState.domain,
+    activePopup: store.popupState.activePopup,
   }));
 
   const dispatch = useDispatch();
@@ -142,6 +145,7 @@ const CreateAccount = (props) => {
           />
         </form>
       </div>
+      {!!activePopup && <Popup />}
     </div>
   );
 };
