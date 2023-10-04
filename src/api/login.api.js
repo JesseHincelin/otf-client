@@ -1,3 +1,4 @@
+import { setGroupes } from "../redux/reducers/groupe.reducer";
 import { resetLogin, setLoginError, startLoading } from "../redux/reducers/login.reducer";
 import routerReducer, { redirect } from "../redux/reducers/router.reducer";
 import { setUser } from "../redux/reducers/user.reducer";
@@ -33,6 +34,9 @@ export const loginThunk = () => async (dispatch, getStates) => {
     dispatch(setUser({ user: user }));
 
     console.log("user :", user);
+    if (!!response.result.groupes) {
+      dispatch(setGroupes({ groupes: response.result.groupes }));
+    }
 
     if (user.firstConnection) {
       dispatch(redirect({ route: ROUTES.changePassword }));
@@ -62,6 +66,9 @@ export const reconnectThunk = () => async (dispatch, getStates) => {
     const { user } = response.result;
 
     dispatch(setUser({ user: user }));
+    if (!!response.result.groupes) {
+      dispatch(setGroupes({ groupes: response.result.groupes }));
+    }
 
     if (currentRoute === ROUTES.login) {
       if (user.role === "admin" || user.role === "super admin") {

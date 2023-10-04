@@ -5,10 +5,11 @@ import Button from "../../Button/button";
 import { searchUserThunk } from "../../../api/searchUser.api";
 import { handleFieldChange } from "../../../redux/reducers/targetAccount.reducer";
 import { handleTargetFieldChange } from "../../../redux/reducers/targetUser.reducer";
-import { ROLE, ROLE_COMPLETE, TEST_OPTIONS } from "../../../utils/selectOptions.util";
+import { ROLE, ROLE_COMPLETE } from "../../../utils/selectOptions.util";
 import Select from "../../Select/select";
 import { editAccountThunk } from "../../../api/editAccount.api";
 import Popup from "../Popup/popup";
+import { groupesOptions } from "../../../utils/groupe.utils";
 
 const EditAccount = () => {
   const {
@@ -18,12 +19,10 @@ const EditAccount = () => {
     domainValue,
     id,
     userName,
-    domain,
-    groupe,
-    role,
     userDomain,
     userRole,
     activePopup,
+    groupes,
   } = useSelector((store) => ({
     error: store.targetAccountState.error,
     loading: store.targetAccountState.loading,
@@ -31,12 +30,10 @@ const EditAccount = () => {
     domainValue: store.targetAccountState.domainValue,
     id: store.targetUserState.id,
     userName: store.targetUserState.userName,
-    domain: store.targetUserState.domain,
-    groupe: store.targetUserState.groupe,
-    role: store.targetUserState.role,
     userDomain: store.userState.domain,
     userRole: store.userState.role,
     activePopup: store.popupState.activePopup,
+    groupes: store.groupeState.groupes,
   }));
 
   const domainOption = ["Select the domain :", userDomain];
@@ -132,7 +129,7 @@ const EditAccount = () => {
             <li>
               <Select
                 className="groupe"
-                options={TEST_OPTIONS}
+                options={groupesOptions(groupes, "Select a groupe :")}
                 id="groupe"
                 label="Groupe :"
                 required={true}

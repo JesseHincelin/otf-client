@@ -9,7 +9,8 @@ import {
 } from "../../../redux/reducers/targetAccount.reducer";
 import { resetCreateAccount } from "../../../redux/reducers/createAccount.reducer";
 
-const AccountNav = () => {
+const AccountNav = (props) => {
+  const { exitOnly } = props;
   const { currentRoute } = useSelector((store) => store.routerState);
 
   const dispatch = useDispatch();
@@ -28,38 +29,40 @@ const AccountNav = () => {
 
   return (
     <>
-      <div className="account__nav">
-        <Button
-          className={
-            currentRoute === ROUTES.admin.createAccount
-              ? "account__nav--create-account--button active"
-              : "account__nav--create-account--button"
-          }
-          handleButtonClick={() => handleNavClick("createAccount")}
-          disabled={currentRoute === ROUTES.admin.createAccount}
-          content="Create account"
-        />
-        <Button
-          className={
-            currentRoute === ROUTES.admin.editAccount
-              ? "account__nav--edit-account--button active"
-              : "account__nav--edit-account--button"
-          }
-          handleButtonClick={() => handleNavClick("editAccount")}
-          disabled={currentRoute === ROUTES.admin.editAccount}
-          content="Edit account"
-        />
-        <Button
-          className={
-            currentRoute === ROUTES.admin.deleteAccount
-              ? "account__nav--delete-account--button active"
-              : "account__nav--delete-account--button"
-          }
-          handleButtonClick={() => handleNavClick("deleteAccount")}
-          disabled={currentRoute === ROUTES.admin.deleteAccount}
-          content="Delete account"
-        />
-      </div>
+      {!exitOnly ? (
+        <div className="account__nav">
+          <Button
+            className={
+              currentRoute === ROUTES.admin.createAccount
+                ? "account__nav--create-account--button active"
+                : "account__nav--create-account--button"
+            }
+            handleButtonClick={() => handleNavClick("createAccount")}
+            disabled={currentRoute === ROUTES.admin.createAccount}
+            content="Create account"
+          />
+          <Button
+            className={
+              currentRoute === ROUTES.admin.editAccount
+                ? "account__nav--edit-account--button active"
+                : "account__nav--edit-account--button"
+            }
+            handleButtonClick={() => handleNavClick("editAccount")}
+            disabled={currentRoute === ROUTES.admin.editAccount}
+            content="Edit account"
+          />
+          <Button
+            className={
+              currentRoute === ROUTES.admin.deleteAccount
+                ? "account__nav--delete-account--button active"
+                : "account__nav--delete-account--button"
+            }
+            handleButtonClick={() => handleNavClick("deleteAccount")}
+            disabled={currentRoute === ROUTES.admin.deleteAccount}
+            content="Delete account"
+          />
+        </div>
+      ) : null}
       <Button
         className="account__nav--exit--button "
         handleButtonClick={() => handleQuitClick("adminDashboard")}

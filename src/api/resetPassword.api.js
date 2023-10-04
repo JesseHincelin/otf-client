@@ -4,26 +4,23 @@ import {
   setTargetAccountError,
   startLoading,
 } from "../redux/reducers/targetAccount.reducer";
-import { resetTargetUser, setTargetUser } from "../redux/reducers/targetUser.reducer";
+import { resetTargetUser } from "../redux/reducers/targetUser.reducer";
+import { setUser } from "../redux/reducers/user.reducer";
 import { getFromStorage } from "../utils/global.util";
-import { getGroupeId } from "../utils/groupe.utils";
 import { patchRequest } from "./requests.api";
 
-export const editAccountThunk = () => async (dispatch, getStates) => {
+export const resetPasswordThunk = () => async (dispatch, getStates) => {
   const { loading } = getStates().targetAccountState;
-  const { userName, domain, groupe, role } = getStates().targetUserState;
-  const { groupes } = getStates().groupeState;
+  const { userName, password } = getStates().targetUserState;
 
   if (loading) return;
-  dispatch(startLoading);
+  dispatch(startLoading());
 
   const response = await patchRequest(
-    "admin/edit-user",
+    "admin/reset-password",
     {
       userName: userName,
-      domain: domain,
-      groupe: getGroupeId(groupes, groupe),
-      role: role,
+      newPassword: password,
     },
     getFromStorage("token")
   );
@@ -33,9 +30,9 @@ export const editAccountThunk = () => async (dispatch, getStates) => {
   }
 
   if (!!response.result && !!response.result.user) {
-    dispatch(resetTargetUser());
-    dispatch(setTargetUser({ user: response.result.user }));
+    dispatch(setUser({ user: response.result.user }));
     dispatch(setMessage({ message: response.result.message }));
-    dispatch(resetTargetAccount);
+    dispatch(resetTargetAccount());
+    dispatch(resetTargetUser());
   }
 };

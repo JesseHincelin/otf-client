@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+// import { createSlice } from "@reduxjs/toolkit";
 
-const ADMIN_STATE = {};
+// const ADMIN_STATE = {};
 
-const adminSlice = createSlice({
-  name: "admin",
-  initialState: ADMIN_STATE,
-  reducers: {},
-});
+// const adminSlice = createSlice({
+//   name: "admin",
+//   initialState: ADMIN_STATE,
+//   reducers: {},
+// });
 
-export const {} = adminSlice.actions;
-export default adminSlice.reducer;
+// export const {} = adminSlice.actions;
+// export default adminSlice.reducer;

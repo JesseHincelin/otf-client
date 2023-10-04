@@ -1,5 +1,5 @@
 export const ROUTES = {
-  signUp: "sign-up",
+  signUp: "sign-up", // not gonna be done
   login: "login", // done
   dashboard: "dashboard",
   adminDashboard: "adminDashboard", // done
@@ -7,7 +7,7 @@ export const ROUTES = {
   admin: {
     createAccount: "create-account", // done
     deleteAccount: "delete-account", // done
-    editAccount: "edit-account",
+    editAccount: "edit-account", //done
     resetPassword: "reset-password",
     createGroupe: "create-groupe",
     deleteGroupe: "delete-groupe",

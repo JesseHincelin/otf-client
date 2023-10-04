@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Input from "../../Input/input";
 import { handleFieldChange } from "../../../redux/reducers/createAccount.reducer";
 import Select from "../../Select/select";
-import { ROLE, ROLE_COMPLETE, TEST_OPTIONS } from "../../../utils/selectOptions.util";
+import { ROLE, ROLE_COMPLETE } from "../../../utils/selectOptions.util";
 import Button from "../../Button/button";
 import "./create-account.scss";
 import AccountNav from "../account-nav/account-nav";
 import { createAccountThunk } from "../../../api/createAccount.api";
 import { useEffect } from "react";
 import Popup from "../Popup/popup";
+import { groupesOptions } from "../../../utils/groupe.utils";
 
 const CreateAccount = (props) => {
   const {
@@ -18,6 +19,7 @@ const CreateAccount = (props) => {
     passwordValue,
     domainValue,
     groupeValue,
+    groupes,
     role,
     userRole,
     userDomain,
@@ -29,6 +31,7 @@ const CreateAccount = (props) => {
     passwordValue: store.createAccountState.passwordValue,
     domainValue: store.createAccountState.domainValue,
     groupeValue: store.createAccountState.groupeValue,
+    groupes: store.groupeState.groupes,
     role: store.createAccountState.role,
     userRole: store.userState.role,
     userDomain: store.userState.domain,
@@ -52,9 +55,8 @@ const CreateAccount = (props) => {
     dispatch(createAccountThunk());
   };
 
-  useEffect(() => {
-    console.log(userNameValue, passwordValue, domainValue, groupeValue, role);
-  }, [userNameValue, passwordValue, domainValue, groupeValue, role]);
+  // useEffect(() => {
+  // }, []);
 
   return (
     <div className="admin__block">
@@ -116,7 +118,7 @@ const CreateAccount = (props) => {
             <li>
               <Select
                 className="groupe"
-                options={TEST_OPTIONS}
+                options={groupesOptions(groupes, "Select a groupe :")}
                 id="groupe"
                 label="Groupe :"
                 required={true}
@@ -136,7 +138,7 @@ const CreateAccount = (props) => {
               />
             </li>
           </ul>
-          {!!error && <span className="error">{error.slice(12)}</span>}
+          {!!error && <span className="error">{error}</span>}
           <Button
             type="submit"
             className="create-account__form--button button"

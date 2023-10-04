@@ -13,7 +13,8 @@
     @include mxn.flex(column);
     align-items: center;
 
-    .account__nav {
+    .account__nav,
+    .groupe__nav {
       @include mxn.flex;
       gap: 16px;
       justify-content: center;
@@ -25,7 +26,8 @@
         @include mxn.button($active: true);
       }
     }
-    .account__nav--exit--button {
+    .account__nav--exit--button,
+    .groupe__nav--exit--button {
       @include mxn.button($active: false);
       position: absolute;
       top: 16px;
@@ -40,8 +42,8 @@
 
     & > form {
       @include mxn.flex(column);
-      gap: 16px;
-      padding: 16px;
+      gap: 32px;
+      padding: 8px 16px 16px 16px;
 
       & > ul {
         @include mxn.flex(column);

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const TARGET_USER_STATE = {
   id: "",
   userName: "",
+  password: "",
   role: "",
   firstConnection: true,
   domain: "",

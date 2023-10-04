@@ -11,6 +11,10 @@ import { reconnectThunk } from "../../api/login.api";
 import DeleteAccount from "../components-admin/delete-account/delete-acount";
 import { getFromStorage } from "../../utils/global.util";
 import EditAccount from "../components-admin/edit-account/edit-account";
+import ResetPassword from "../components-admin/reset-password/reset-password";
+import CreateGroupe from "../components-admin/create-groupe/create-groupe";
+import EditGroupe from "../components-admin/edit-groupe/edit-groupe";
+import DeleteGroupe from "../components-admin/delete-groupe/delete-groupe";
 
 const App = () => {
   const { currentRoute } = useSelector((store) => store.routerState);
@@ -31,6 +35,14 @@ const App = () => {
         return <EditAccount />;
       case ROUTES.admin.deleteAccount:
         return <DeleteAccount />;
+      case ROUTES.admin.resetPassword:
+        return <ResetPassword />;
+      case ROUTES.admin.createGroupe:
+        return <CreateGroupe />;
+      case ROUTES.admin.editGroupe:
+        return <EditGroupe />;
+      case ROUTES.admin.deleteGroupe:
+        return <DeleteGroupe />;
       default:
         return null;
     }
@@ -43,6 +55,7 @@ const App = () => {
 
   return (
     <div className="App light">
+      {/* light class name depend on the user setting in their profile */}
       <Header />
       {/* the class "admin" must depend on the role of the user */}
       <main className="main admin">{getCurrentRoute()}</main>
