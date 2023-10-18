@@ -65,13 +65,36 @@
   color: var(--background-color);
   background: var(--primary-color);
   &:hover,
-  :focus {
+  &:focus {
     transform-origin: center;
     transform: scale(1.3);
     box-shadow: none;
+    outline: none;
   }
   svg {
     fill: var(--background-color);
     pointer-events: none;
+  }
+}
+
+@mixin user-nav-button {
+  border: none;
+  border-radius: 0;
+  line-height: 1.5;
+  padding: 4px 8px;
+  transition: var(--transition-two);
+  font-size: var(--medium-font);
+  cursor: initial;
+  color: var(--primary-color);
+  background: var(--secondary-color);
+  &:hover,
+  &:focus {
+    transform-origin: center;
+    transform: scale(1.3);
+    box-shadow: none;
+    color: var(--primary-color);
+    background: var(--secondary-color);
+    // outline: thin double var(--background-color);
+    outline: none;
   }
 }

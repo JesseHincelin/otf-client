@@ -4,24 +4,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
-#root > .app {
-  line-height: 1.618;
-  font-size: calc(1.2rem + 0.6vmin);
-  -webkit-font-smoothing: antialiased;
+// #root > .app {
+//   line-height: 1.618;
+//   font-size: calc(1.2rem + 0.6vmin);
+//   -webkit-font-smoothing: antialiased;
 
-  .dark {
-    // need to establish a color theme for the dark theme
-    --primary-color: ;
-    --secondary-color: ;
-    --tertiary-color: ;
-    --background-color: rgb(36, 34, 34);
-  }
+//   .dark {
+//     // need to establish a color theme for the dark theme
+//     --primary-color: ;
+//     --secondary-color: ;
+//     --tertiary-color: ;
+//     --background-color: rgb(36, 34, 34);
+//   }
 
-  .light {
-    // need to establish a color theme for the light theme (by default)
-    --primary-color: #102c57;
-    --secondary-color: ;
-    --tertiary-color: ;
-    --background-color: rgb(221, 221, 221);
-  }
-}
+//   .light {
+//     // need to establish a color theme for the light theme (by default)
+//     --primary-color: #102c57;
+//     --secondary-color: #f2c58e;
+//     --tertiary-color: #f2c58e;
+//     --background-color: rgb(221, 221, 221);
+//   }
+// }

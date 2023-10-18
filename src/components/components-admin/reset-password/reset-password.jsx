@@ -6,6 +6,7 @@ import Button from "../../Button/button";
 import { handleTargetFieldChange } from "../../../redux/reducers/targetUser.reducer";
 import { resetPasswordThunk } from "../../../api/resetPassword.api";
 import AccountNav from "../account-nav/account-nav";
+import "./reset-password.scss";
 
 const ResetPassword = () => {
   const { error, loading, userNameValue, domainValue, id, userName, password } = useSelector(
@@ -113,6 +114,7 @@ const ResetPassword = () => {
               <span
                 className="material-symbols-outlined"
                 onClick={handleCopyClick}
+                title="Copy password on clipboard"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

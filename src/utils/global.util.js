@@ -15,3 +15,13 @@ export const getFromStorage = (key) => {
 };
 
 export const upperCasing = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+export const currentDate = () => {
+  const date = new Date();
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year}`;
+};

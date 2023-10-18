@@ -45,7 +45,7 @@ const Login = (props) => {
               className="login__form--userName"
               id="userName"
               label="User-Name :"
-              value={userNameValue.trim()}
+              value={userNameValue}
               disabled={loading}
               required={true}
               handleInputChange={(value) => handleFormChange(value, "userNameValue")}

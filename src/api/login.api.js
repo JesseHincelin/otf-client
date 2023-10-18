@@ -1,7 +1,7 @@
 import { setGroupes } from "../redux/reducers/groupe.reducer";
 import { resetLogin, setLoginError, startLoading } from "../redux/reducers/login.reducer";
-import routerReducer, { redirect } from "../redux/reducers/router.reducer";
-import { setUser } from "../redux/reducers/user.reducer";
+import { redirect } from "../redux/reducers/router.reducer";
+import { setCategories, setUser } from "../redux/reducers/user.reducer";
 import { getFromStorage, saveLocalStorage } from "../utils/global.util";
 import { ROUTES } from "../utils/routes.util";
 import { getRequest, postRequest } from "./requests.api";
@@ -10,7 +10,7 @@ export const loginThunk = () => async (dispatch, getStates) => {
   const { loading, userNameValue, domainValue, passwordValue } = getStates().loginState;
 
   console.log("loading :", loading);
-  console.log("user name :", userNameValue);
+  console.log("user name :", userNameValue.trim());
   console.log("password :", passwordValue);
 
   if (loading) return;
@@ -38,10 +38,14 @@ export const loginThunk = () => async (dispatch, getStates) => {
       dispatch(setGroupes({ groupes: response.result.groupes }));
     }
 
+    if (!!response.result.categories) {
+      dispatch(setCategories({ categories: response.result.categories }));
+    }
+
     if (user.firstConnection) {
       dispatch(redirect({ route: ROUTES.changePassword }));
     } else if (user.role !== "admin" && user.role !== "super admin") {
-      dispatch(redirect({ route: ROUTES.dashboard }));
+      dispatch(redirect({ route: ROUTES.user.userDashboard }));
     } else {
       dispatch(redirect({ route: ROUTES.adminDashboard }));
     }
@@ -74,9 +78,13 @@ export const reconnectThunk = () => async (dispatch, getStates) => {
       if (user.role === "admin" || user.role === "super admin") {
         dispatch(redirect({ route: ROUTES.adminDashboard }));
       } else {
-        dispatch(redirect({ route: ROUTES.dashboard }));
+        dispatch(redirect({ route: ROUTES.user.userDashboard }));
       }
     }
+  }
+
+  if (!!response.result.categories) {
+    dispatch(setCategories({ categories: response.result.categories }));
   }
   dispatch(resetLogin());
 };

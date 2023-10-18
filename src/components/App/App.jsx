@@ -15,16 +15,22 @@ import ResetPassword from "../components-admin/reset-password/reset-password";
 import CreateGroupe from "../components-admin/create-groupe/create-groupe";
 import EditGroupe from "../components-admin/edit-groupe/edit-groupe";
 import DeleteGroupe from "../components-admin/delete-groupe/delete-groupe";
+import GetUser from "../components-admin/get-user/get-user";
+import UserDashboard from "../components-user/user-dashboard/user-dashboard";
+import NewTodo from "../components-user/new-todo/new-todo";
+import UserNav from "../components-user/user-nav/user-nav";
 
 const App = () => {
-  const { currentRoute } = useSelector((store) => store.routerState);
+  const { currentRoute, role, theme } = useSelector((store) => ({
+    currentRoute: store.routerState.currentRoute,
+    role: store.userState.role,
+    theme: store.userState.theme,
+  }));
   const dispatch = useDispatch();
   const getCurrentRoute = () => {
     switch (currentRoute) {
       case ROUTES.login:
         return <Login />;
-      case ROUTES.dashboard:
-        return; //indicate the component dashboard
       case ROUTES.adminDashboard:
         return <AdminDashboard />;
       case ROUTES.changePassword:
@@ -43,6 +49,13 @@ const App = () => {
         return <EditGroupe />;
       case ROUTES.admin.deleteGroupe:
         return <DeleteGroupe />;
+      case ROUTES.admin.getAllUsersRequest:
+        return <GetUser />;
+      case ROUTES.user.userDashboard:
+        return <UserDashboard />;
+      case ROUTES.user.newTodo:
+        return <NewTodo />;
+
       default:
         return null;
     }
@@ -54,11 +67,22 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App light">
+    <div className={!theme ? "App light" : `App ${theme}`}>
       {/* light class name depend on the user setting in their profile */}
       <Header />
       {/* the class "admin" must depend on the role of the user */}
-      <main className="main admin">{getCurrentRoute()}</main>
+      <main
+        className={!role || role === "admin" || role === "super admin" ? "main admin" : "main user"}
+      >
+        {role === "supervisor" || role === "staff" ? (
+          <>
+            <UserNav />
+            {getCurrentRoute()}
+          </>
+        ) : (
+          getCurrentRoute()
+        )}
+      </main>
     </div>
   );
 };

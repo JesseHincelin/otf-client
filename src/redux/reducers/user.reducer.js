@@ -10,11 +10,14 @@ const USER_STATE = {
   theme: "",
   todosAssigned: [],
   error: null,
+  categories: [],
 };
+
+const getInitialState = () => USER_STATE;
 
 const userSlice = createSlice({
   name: "user",
-  initialState: USER_STATE,
+  initialState: getInitialState(),
   reducers: {
     setUser: (state, action) => {
       const user = action.payload.user;
@@ -32,8 +35,14 @@ const userSlice = createSlice({
         todosAssigned: user.todosAssigned,
       };
     },
+    resetUser: () => getInitialState(),
+    setCategories: (state, action) => {
+      const categories = action.payload.categories;
+
+      return { ...state, categories: categories };
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, resetUser, setCategories } = userSlice.actions;
 export default userSlice.reducer;

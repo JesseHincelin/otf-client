@@ -1,0 +1,15 @@
+@use "../../../styles/mixins" as mxn;
+
+.user-nav {
+  min-width: 100%;
+  background: var(--secondary-color);
+  padding: 8px 16px;
+  &__list {
+    @include mxn.flex;
+    justify-content: space-evenly;
+    &--button {
+      @include mxn.user-nav-button;
+      flex: 1 0;
+    }
+  }
+}

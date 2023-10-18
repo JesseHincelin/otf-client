@@ -3,12 +3,16 @@ import Button from "../Button/button";
 import "./header.scss";
 import { redirect } from "../../redux/reducers/router.reducer";
 import { ROUTES } from "../../utils/routes.util";
+import { resetLogin } from "../../redux/reducers/login.reducer";
+import { resetUser } from "../../redux/reducers/user.reducer";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const handleLogOutClick = () => {
     localStorage.removeItem("token");
+    dispatch(resetLogin());
+    dispatch(resetUser());
     dispatch(redirect({ route: ROUTES.login }));
   };
 

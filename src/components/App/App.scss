@@ -64,3 +64,12 @@
     }
   }
 }
+
+.user {
+  @include mxn.flex(column);
+  align-items: center;
+
+  & .section {
+    padding: 32px;
+  }
+}

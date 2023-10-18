@@ -93,6 +93,7 @@ const CreateAccount = (props) => {
               <span
                 className="material-symbols-outlined"
                 onClick={handleCopyClick}
+                title="Copy password on clipboard"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
