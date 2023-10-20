@@ -9,7 +9,9 @@ const NEW_TODO_STATE = {
   dueOnValue: "",
   priority: "",
   groupeTask: "",
-  detailsVlaue: "",
+  categorie: "",
+  detailsValue: "",
+  assignedTo: [],
 };
 
 const getInitialState = () => NEW_TODO_STATE;
@@ -23,8 +25,32 @@ const newTodoSlice = createSlice({
 
       return { ...state, [props]: value };
     },
+    setAssignedTo: (state, action) => {
+      const { assignedTo } = action.payload;
+      return { ...state, assignedTo: assignedTo };
+    },
+    startLoading: (state) => {
+      return { ...state, loading: true };
+    },
+    stopLoading: (state) => {
+      return { ...state, loading: false };
+    },
+
+    resetNewTodo: () => getInitialState(),
+    setNewTodoError: (state, action) => {
+      const { error } = action.payload;
+
+      return { ...state, error: error };
+    },
   },
 });
 
-export const { handleFieldChange } = newTodoSlice.actions;
+export const {
+  handleFieldChange,
+  setAssignedTo,
+  startLoading,
+  stopLoading,
+  resetNewTodo,
+  setNewTodoError,
+} = newTodoSlice.actions;
 export default newTodoSlice.reducer;

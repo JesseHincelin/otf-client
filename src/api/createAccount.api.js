@@ -36,7 +36,6 @@ export const createAccountThunk = () => async (dispatch, getStates) => {
   }
   if (!!response.result && !!response.result.user) {
     dispatch(setTargetUser({ user: response.result.user }));
-    console.log("find message :", response.result);
     dispatch(setMessage({ message: response.result.message }));
     dispatch(resetCreateAccount());
   }

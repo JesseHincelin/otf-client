@@ -23,5 +23,12 @@ export const currentDate = () => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
 
-  return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year}`;
+  return `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+};
+
+export const USER_ROLE = {
+  SUPER_ADMIN: "super admin",
+  ADMIN: "admin",
+  SUPERVISOR: "supervisor",
+  STAFF: "staff",
 };

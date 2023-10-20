@@ -11,6 +11,7 @@ const USER_STATE = {
   todosAssigned: [],
   error: null,
   categories: [],
+  groupe: [],
 };
 
 const getInitialState = () => USER_STATE;
@@ -41,8 +42,13 @@ const userSlice = createSlice({
 
       return { ...state, categories: categories };
     },
+    setGroup: (state, action) => {
+      const groupe = action.payload.groupe;
+
+      return { ...state, groupe: groupe };
+    },
   },
 });
 
-export const { setUser, resetUser, setCategories } = userSlice.actions;
+export const { setUser, resetUser, setCategories, setGroup } = userSlice.actions;
 export default userSlice.reducer;

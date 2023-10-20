@@ -1,17 +1,13 @@
 import { setGroupes } from "../redux/reducers/groupe.reducer";
 import { resetLogin, setLoginError, startLoading } from "../redux/reducers/login.reducer";
 import { redirect } from "../redux/reducers/router.reducer";
-import { setCategories, setUser } from "../redux/reducers/user.reducer";
+import { setCategories, setGroup, setUser } from "../redux/reducers/user.reducer";
 import { getFromStorage, saveLocalStorage } from "../utils/global.util";
 import { ROUTES } from "../utils/routes.util";
 import { getRequest, postRequest } from "./requests.api";
 
 export const loginThunk = () => async (dispatch, getStates) => {
   const { loading, userNameValue, domainValue, passwordValue } = getStates().loginState;
-
-  console.log("loading :", loading);
-  console.log("user name :", userNameValue.trim());
-  console.log("password :", passwordValue);
 
   if (loading) return;
   dispatch(startLoading());
@@ -23,7 +19,6 @@ export const loginThunk = () => async (dispatch, getStates) => {
   });
 
   if (!!response.error) {
-    console.log("error :", response.error);
     dispatch(setLoginError({ error: response.error }));
   }
 
@@ -33,13 +28,16 @@ export const loginThunk = () => async (dispatch, getStates) => {
 
     dispatch(setUser({ user: user }));
 
-    console.log("user :", user);
     if (!!response.result.groupes) {
       dispatch(setGroupes({ groupes: response.result.groupes }));
     }
 
     if (!!response.result.categories) {
       dispatch(setCategories({ categories: response.result.categories }));
+    }
+
+    if (!!response.result.groupe) {
+      dispatch(setGroup({ groupe: response.result.groupe }));
     }
 
     if (user.firstConnection) {
@@ -81,10 +79,13 @@ export const reconnectThunk = () => async (dispatch, getStates) => {
         dispatch(redirect({ route: ROUTES.user.userDashboard }));
       }
     }
+    if (!!response.result.categories) {
+      dispatch(setCategories({ categories: response.result.categories }));
+    }
+    if (!!response.result.groupe) {
+      dispatch(setGroup({ groupe: response.result.groupe }));
+    }
   }
 
-  if (!!response.result.categories) {
-    dispatch(setCategories({ categories: response.result.categories }));
-  }
   dispatch(resetLogin());
 };

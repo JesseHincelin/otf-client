@@ -29,6 +29,12 @@ body {
     --primary-color: #102c57;
     --secondary-color: #f2c58e;
     --tertiary-color: ;
+    --default-color: linear-gradient(
+      115deg,
+      rgba(196, 196, 196, 1) 0%,
+      rgba(163, 163, 163, 1) 50%,
+      rgba(133, 133, 133, 1) 100%
+    );
     --background-color: rgb(221, 221, 221);
   }
 }
