@@ -15,7 +15,9 @@ const UserNav = () => {
   const handleNewTodoClick = () => {
     dispatch(redirect({ route: ROUTES.user.newTodo }));
   };
-  const handleNewCategorieClick = () => {};
+  const handleNewCategorieClick = () => {
+    dispatch(redirect({ route: ROUTES.user.newCategorie }));
+  };
   const handleNotificationsClick = () => {};
 
   return (

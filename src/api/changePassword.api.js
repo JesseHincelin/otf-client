@@ -36,7 +36,7 @@ export const changePasswordThunk = () => async (dispatch, getStates) => {
     dispatch(setUser({ user: user }));
 
     if (user.role !== "admin" && user.role !== "super admin") {
-      dispatch(redirect({ route: ROUTES.dashboard }));
+      dispatch(redirect({ route: ROUTES.user.userDashboard }));
     } else {
       dispatch(redirect({ route: ROUTES.adminDashboard }));
     }

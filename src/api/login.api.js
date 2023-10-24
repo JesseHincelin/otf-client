@@ -36,8 +36,8 @@ export const loginThunk = () => async (dispatch, getStates) => {
       dispatch(setCategories({ categories: response.result.categories }));
     }
 
-    if (!!response.result.groupe) {
-      dispatch(setGroup({ groupe: response.result.groupe }));
+    if (!!response.result.groupeMembers) {
+      dispatch(setGroup({ groupeMembers: response.result.groupeMembers }));
     }
 
     if (user.firstConnection) {
@@ -82,8 +82,8 @@ export const reconnectThunk = () => async (dispatch, getStates) => {
     if (!!response.result.categories) {
       dispatch(setCategories({ categories: response.result.categories }));
     }
-    if (!!response.result.groupe) {
-      dispatch(setGroup({ groupe: response.result.groupe }));
+    if (!!response.result.groupeMembers) {
+      dispatch(setGroup({ groupeMembers: response.result.groupeMembers }));
     }
   }
 

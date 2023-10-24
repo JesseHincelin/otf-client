@@ -15,10 +15,10 @@ export const ROUTES = {
     getAllUsersDisplay: "get-all-user-display",
   },
   user: {
-    userDashboard: "user-dashboard",
+    userDashboard: "user-dashboard", //done
     categorieDetail: "categorie-detail",
     todoDetail: "todo-detail",
-    newTodo: "new-todo",
-    newCategorie: "new-categorie",
+    newTodo: "new-todo", //done
+    newCategorie: "new-categorie", //done
   },
 };

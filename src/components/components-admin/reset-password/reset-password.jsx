@@ -7,6 +7,7 @@ import { handleTargetFieldChange } from "../../../redux/reducers/targetUser.redu
 import { resetPasswordThunk } from "../../../api/resetPassword.api";
 import AccountNav from "../account-nav/account-nav";
 import "./reset-password.scss";
+import { generateRandPass } from "../../../utils/global.util";
 
 const ResetPassword = () => {
   const { error, loading, userNameValue, domainValue, id, userName, password } = useSelector(
@@ -29,8 +30,15 @@ const ResetPassword = () => {
     dispatch(handleTargetFieldChange({ value, props }));
   };
 
-  const handleCopyClick = () => {
+  const handleCopyClick = (event) => {
+    event.preventDefault();
     navigator.clipboard.writeText(password);
+  };
+
+  const handleGenerateClick = (event) => {
+    event.preventDefault();
+    const password = generateRandPass(20);
+    dispatch(handleFieldChange({ value: password, props: "password" }));
   };
 
   const handleSearchSubmit = (event) => {
@@ -111,10 +119,26 @@ const ResetPassword = () => {
                 required={true}
                 handleInputChange={(value) => handleSecondFormChange(value, "password")}
               />
-              <span
+              <button
+                className="material-symbols-outlined"
+                onClick={handleGenerateClick}
+                title="Generate Password"
+                disabled={!id ? true : loading ? true : false}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24"
+                  viewBox="0 -960 960 960"
+                  width="24"
+                >
+                  <path d="M482-160q-134 0-228-93t-94-227v-7l-64 64-56-56 160-160 160 160-56 56-64-64v7q0 100 70.5 170T482-240q26 0 51-6t49-18l60 60q-38 22-78 33t-82 11Zm278-161L600-481l56-56 64 64v-7q0-100-70.5-170T478-720q-26 0-51 6t-49 18l-60-60q38-22 78-33t82-11q134 0 228 93t94 227v7l64-64 56 56-160 160Z" />
+                </svg>
+              </button>
+              <button
                 className="material-symbols-outlined"
                 onClick={handleCopyClick}
                 title="Copy password on clipboard"
+                disabled={!id ? true : loading ? true : false}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +148,7 @@ const ResetPassword = () => {
                 >
                   <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
                 </svg>
-              </span>
+              </button>
             </li>
           </ul>
           {!!error && <span className="error">{error}</span>}

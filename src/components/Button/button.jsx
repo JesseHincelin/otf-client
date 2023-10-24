@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./button.scss";
 
 const Button = (props) => {

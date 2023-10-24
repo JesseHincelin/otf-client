@@ -1,9 +1,11 @@
 @use "../../../styles/mixins" as mxn;
 
 .admin-dashboard {
+  @include mxn.flex;
   padding-top: 32px;
   & > ul {
     @include mxn.flex;
+    justify-content: center;
     gap: 32px;
     align-items: center;
 

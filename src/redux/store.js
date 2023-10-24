@@ -10,6 +10,7 @@ import targetAccountReducer from "./reducers/targetAccount.reducer";
 import popupReducer from "./reducers/popup.reducer";
 import groupeReducer from "./reducers/groupe.reducer";
 import newTodoReducer from "./reducers/new-todo.reducer";
+import newCategorieReducer from "./reducers/new-categorie.reducer";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     popupState: popupReducer,
     groupeState: groupeReducer,
     newTodoState: newTodoReducer,
+    newCategorieState: newCategorieReducer,
   },
 });
 

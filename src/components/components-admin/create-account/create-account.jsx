@@ -10,6 +10,8 @@ import { createAccountThunk } from "../../../api/createAccount.api";
 import { useEffect } from "react";
 import Popup from "../Popup/popup";
 import { groupesOptions } from "../../../utils/groupe.utils";
+import { generateRandPass } from "../../../utils/global.util";
+import { contentCopyIcon, generatePassIcon } from "../../../utils/export-icons.utils";
 
 const CreateAccount = (props) => {
   const {
@@ -46,8 +48,15 @@ const CreateAccount = (props) => {
     dispatch(handleFieldChange({ value, props }));
   };
 
-  const handleCopyClick = () => {
+  const handleCopyClick = (event) => {
+    event.preventDefault();
     navigator.clipboard.writeText(passwordValue);
+  };
+
+  const handleGenerateClick = (event) => {
+    event.preventDefault();
+    const password = generateRandPass(20);
+    dispatch(handleFieldChange({ value: password, props: "passwordValue" }));
   };
 
   const handleSubmit = (event) => {
@@ -90,20 +99,20 @@ const CreateAccount = (props) => {
                 required={true}
                 handleInputChange={(value) => handleFormChange(value, "passwordValue")}
               />
-              <span
+              <button
+                className="material-symbols-outlined"
+                onClick={handleGenerateClick}
+                title="Generate Password"
+              >
+                {generatePassIcon()}
+              </button>
+              <button
                 className="material-symbols-outlined"
                 onClick={handleCopyClick}
                 title="Copy password on clipboard"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 -960 960 960"
-                  width="24"
-                >
-                  <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z" />
-                </svg>
-              </span>
+                {contentCopyIcon()}
+              </button>
             </li>
             <li>
               <Select

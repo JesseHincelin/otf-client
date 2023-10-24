@@ -11,7 +11,7 @@ const USER_STATE = {
   todosAssigned: [],
   error: null,
   categories: [],
-  groupe: [],
+  groupeMembers: [],
 };
 
 const getInitialState = () => USER_STATE;
@@ -43,9 +43,9 @@ const userSlice = createSlice({
       return { ...state, categories: categories };
     },
     setGroup: (state, action) => {
-      const groupe = action.payload.groupe;
+      const groupeMembers = action.payload.groupeMembers;
 
-      return { ...state, groupe: groupe };
+      return { ...state, groupeMembers: groupeMembers };
     },
   },
 });

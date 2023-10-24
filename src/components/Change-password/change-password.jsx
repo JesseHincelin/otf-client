@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Input from "../Input/input";
 import "./change-password.scss";
 import Button from "../Button/button";
-import { handleFieldChange } from "../../redux/reducers/new-password.reducer";
-import "./change-password.scss";
+import { handleFieldChange, setNewPasswordError } from "../../redux/reducers/new-password.reducer";
 import { changePasswordThunk } from "../../api/changePassword.api";
+import { REGEX, passwordIsValid, regexIsOk } from "../../utils/regex.utils";
+import { boxChecked, boxEmpty, circleCheck } from "../../utils/export-icons.utils";
 
-const ChangePassword = (props) => {
+const ChangePassword = () => {
   const { error, loading, oldPassValue, newPassValue, confPassValue } = useSelector(
     (store) => store.newPasswordState
   );
@@ -19,7 +20,15 @@ const ChangePassword = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(changePasswordThunk());
+    if (newPassValue !== confPassValue) {
+      dispatch(setNewPasswordError({ error: "Confirmation does not match password" }));
+      return;
+    } else if (!passwordIsValid(newPassValue)) {
+      return;
+    } else if (newPassValue === confPassValue) {
+      dispatch(setNewPasswordError({ error: "" }));
+      dispatch(changePasswordThunk());
+    }
   };
 
   return (
@@ -42,7 +51,7 @@ const ChangePassword = (props) => {
               handleInputChange={(value) => handleFormChange(value, "oldPassValue")}
             />
           </li>
-          <li>
+          <li className="new-password">
             <Input
               className="changePassword__form--newPass-2"
               id="newPass"
@@ -52,9 +61,78 @@ const ChangePassword = (props) => {
               disabled={loading}
               required={true}
               handleInputChange={(value) => handleFormChange(value, "newPassValue")}
-            />
+            >
+              {passwordIsValid(newPassValue) ? (
+                <span className="valide">{circleCheck()}</span>
+              ) : null}
+            </Input>
+            {passwordIsValid(newPassValue) ? null : (
+              <div className="new-password__block">
+                <p className="new-password__block--title">
+                  The new password must contain at least :
+                </p>
+                <ul className="list__conditions">
+                  <li className="list__conditions--uppercase">
+                    <p
+                      className={
+                        regexIsOk(REGEX.PASS_CONTROL.uppercase, newPassValue) ? "green" : "red"
+                      }
+                    >
+                      One uppercase character
+                    </p>
+                    {regexIsOk(REGEX.PASS_CONTROL.uppercase, newPassValue)
+                      ? boxChecked()
+                      : boxEmpty()}
+                  </li>
+                  <li className="list__conditions--lowercase">
+                    <p
+                      className={
+                        regexIsOk(REGEX.PASS_CONTROL.lowercase, newPassValue) ? "green" : "red"
+                      }
+                    >
+                      One lowercase character
+                    </p>
+                    {regexIsOk(REGEX.PASS_CONTROL.lowercase, newPassValue)
+                      ? boxChecked()
+                      : boxEmpty()}
+                  </li>
+                  <li className="list__conditions--number">
+                    <p
+                      className={
+                        regexIsOk(REGEX.PASS_CONTROL.number, newPassValue) ? "green" : "red"
+                      }
+                    >
+                      One number
+                    </p>
+                    {regexIsOk(REGEX.PASS_CONTROL.number, newPassValue) ? boxChecked() : boxEmpty()}
+                  </li>
+                  <li className="list__conditions--character">
+                    <p
+                      className={
+                        regexIsOk(REGEX.PASS_CONTROL.special, newPassValue) ? "green" : "red"
+                      }
+                    >
+                      One special character
+                    </p>
+                    {regexIsOk(REGEX.PASS_CONTROL.special, newPassValue)
+                      ? boxChecked()
+                      : boxEmpty()}
+                  </li>
+                  <li className="list__conditions--length">
+                    <p
+                      className={
+                        regexIsOk(REGEX.PASS_CONTROL.length, newPassValue) ? "green" : "red"
+                      }
+                    >
+                      Eight characters
+                    </p>
+                    {regexIsOk(REGEX.PASS_CONTROL.length, newPassValue) ? boxChecked() : boxEmpty()}
+                  </li>
+                </ul>
+              </div>
+            )}
           </li>
-          <li>
+          <li className="new-password">
             <Input
               className="changePassword__form--newPass-3"
               id="confPass"
@@ -64,10 +142,14 @@ const ChangePassword = (props) => {
               disabled={loading}
               required={true}
               handleInputChange={(value) => handleFormChange(value, "confPassValue")}
-            />
+            >
+              {confPassValue === newPassValue && confPassValue.length > 0 ? (
+                <span className="valide">{circleCheck()}</span>
+              ) : null}
+            </Input>
           </li>
         </ul>
-        {!!error && <span className="error">{error.slice(12)}</span>}
+        {!!error && <span className="error">{error}</span>}
         <Button
           type="submit"
           className="changePassword__form--button"

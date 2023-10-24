@@ -9,6 +9,7 @@ import { ROUTES } from "../../../utils/routes.util";
 import newTodoReducer, {
   handleFieldChange,
   setAssignedTo,
+  setNewTodoError,
 } from "../../../redux/reducers/new-todo.reducer";
 import "./new-todo.scss";
 import { useState } from "react";
@@ -18,25 +19,27 @@ import Popup from "../../components-admin/Popup/popup";
 const NewTodo = () => {
   const {
     userName,
+    categories,
+    groupeMembers,
+    role,
     loading,
     error,
     titleValue,
     dueOnValue,
-    categories,
-    groupe,
-    role,
+    groupeTask,
     detailsValue,
     assignedTo,
     activePopup,
   } = useSelector((store) => ({
     userName: store.userState.userName,
     categories: store.userState.categories,
-    groupe: store.userState.groupe,
+    groupeMembers: store.userState.groupeMembers,
     role: store.userState.role,
     loading: store.newTodoState.loading,
     error: store.newTodoState.error,
     titleValue: store.newTodoState.titleValue,
     dueOnValue: store.newTodoState.dueOnValue,
+    groupeTask: store.newTodoState.groupeTask,
     detailsValue: store.newTodoState.detailsValue,
     assignedTo: store.newTodoState.assignedTo,
     activePopup: store.popupState.activePopup,
@@ -65,6 +68,13 @@ const NewTodo = () => {
       newAssignement.push(value);
       dispatch(setAssignedTo({ assignedTo: newAssignement }));
     }
+    if (groupeTask === "Yes" && assignedTo.length < 2) {
+      dispatch(
+        setNewTodoError({ error: "For a group task, please select more than one groupe member" })
+      );
+    } else {
+      dispatch(setNewTodoError({ error: "" }));
+    }
   };
 
   const removeSelected = (value) => {
@@ -73,10 +83,18 @@ const NewTodo = () => {
       newAssignement.splice(newAssignement.indexOf(value), 1);
       dispatch(setAssignedTo({ assignedTo: newAssignement }));
     }
+    if (groupeTask === "Yes" && assignedTo.length < 2) {
+      dispatch(
+        setNewTodoError({ error: "For a group task, please select more than one groupe member" })
+      );
+    } else {
+      dispatch(setNewTodoError({ error: "" }));
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!!error) return;
     dispatch(newTodoThunk());
   };
 
@@ -90,12 +108,12 @@ const NewTodo = () => {
   };
 
   const getGroup = () => {
-    if (groupe?.length < 1) return;
-    const groupeMembers = ["Assigne to a group member :"];
-    for (let i = 0; i < groupe.length; i++) {
-      groupeMembers.push(groupe[i].userName);
+    if (groupeMembers?.length < 1) return;
+    const groupeMember = ["Assigne to a group member :"];
+    for (let i = 0; i < groupeMembers.length; i++) {
+      groupeMember.push(groupeMembers[i].userName);
     }
-    return groupeMembers;
+    return groupeMember;
   };
 
   const checkCategorie = () => {
@@ -111,27 +129,27 @@ const NewTodo = () => {
   return (
     <section className="section section__new-todo">
       <div
-        className="new-todo"
+        className="block"
         style={
           !categorie ? { background: "var(--default-color)" } : { background: checkCategorie() }
         }
       >
         <div className="section__header">
-          <h2 className="new-todo__title">New To-do</h2>
+          <h2 className="new-todo__title block__title">New To-do</h2>
           <Button
             handleButtonClick={handleExitClick}
-            className="new-todo__exit-button"
+            className="new-todo__exit-button block__exit-button"
             content="X"
             type="button"
           />
         </div>
         <form
           action=""
-          className="new-todo__form"
+          className="new-todo__form block__form"
           onSubmit={handleSubmit}
         >
           <Input
-            className="new-todo__form--title"
+            className="new-todo__form--title block__form--title"
             id="title"
             label="Title :"
             value={titleValue}
@@ -141,7 +159,7 @@ const NewTodo = () => {
             handleInputChange={(value) => handleFormChange(value, "titleValue")}
           />
           <Input
-            className="new-todo__form--created-on"
+            className="new-todo__form--created-on block__form--created-on"
             id="created-on"
             label="Created on :"
             value={currentDate()}
@@ -199,7 +217,6 @@ const NewTodo = () => {
             className="new-todo__form--details"
             id="details"
             label="Details :"
-            required={true}
             value={detailsValue}
             disabled={loading}
             handleInputChange={(value) => handleFormChange(value, "detailsValue")}
@@ -238,9 +255,10 @@ const NewTodo = () => {
               </div>
             </>
           ) : null}
+          {!!error && <span className="error">{error}</span>}
           <Button
             type="submit"
-            className="new-todo__form--button"
+            className="new-todo__form--button block__form--button"
             disabled={loading}
             content="Create new to-do"
           />

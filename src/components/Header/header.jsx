@@ -5,6 +5,7 @@ import { redirect } from "../../redux/reducers/router.reducer";
 import { ROUTES } from "../../utils/routes.util";
 import { resetLogin } from "../../redux/reducers/login.reducer";
 import { resetUser } from "../../redux/reducers/user.reducer";
+import { generateRandPass } from "../../utils/global.util";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="header__title">
         <h1 className="header__title--first">Office Task</h1>
         <span className="header__title--second">Flow</span>
@@ -38,7 +39,7 @@ const Header = () => {
           }
         />
       </div>
-    </div>
+    </header>
   );
 };
 

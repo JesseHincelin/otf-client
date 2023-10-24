@@ -12,6 +12,7 @@ const Input = (props) => {
     placeholder,
     handleInputChange,
     readOnly,
+    children,
   } = props;
 
   return (
@@ -34,6 +35,7 @@ const Input = (props) => {
         onChange={!!handleInputChange ? (e) => handleInputChange(e.target.value) : null}
         readOnly={!!readOnly}
       />
+      {children}
     </div>
   );
 };

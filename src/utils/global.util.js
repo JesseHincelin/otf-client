@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { passwordIsValid } from "./regex.utils";
 
 export const generateId = () => uuidv4();
 
@@ -31,4 +32,34 @@ export const USER_ROLE = {
   ADMIN: "admin",
   SUPERVISOR: "supervisor",
   STAFF: "staff",
+};
+
+export const generateRandPass = (passwordLength) => {
+  let result = "";
+  const characters = {
+    upperCaseCharacters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    lowerCaseCharacters: "abcdefghijklmnopqrstuvwxyz",
+    specialCharacters: "!.?/-_+*=$%",
+    numbers: "0123456789",
+  };
+  for (let i = 0; i < passwordLength; i++) {
+    let charactersList = "";
+    const index = Math.floor(Math.random() * 4);
+    if (index === 0) {
+      charactersList = characters.upperCaseCharacters;
+    } else if (index === 1) {
+      charactersList = characters.lowerCaseCharacters;
+    } else if (index === 2) {
+      charactersList = characters.specialCharacters;
+    } else if (index === 3) {
+      charactersList = characters.numbers;
+    }
+    result += charactersList.charAt(Math.floor(Math.random() * charactersList.length));
+  }
+
+  if (!passwordIsValid(result)) {
+    generateRandPass(passwordLength);
+  } else {
+    return result;
+  }
 };

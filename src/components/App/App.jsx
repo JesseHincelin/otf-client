@@ -19,6 +19,7 @@ import GetUser from "../components-admin/get-user/get-user";
 import UserDashboard from "../components-user/user-dashboard/user-dashboard";
 import NewTodo from "../components-user/new-todo/new-todo";
 import UserNav from "../components-user/user-nav/user-nav";
+import NewCategorie from "../components-user/new-categorie/new-categorie";
 
 const App = () => {
   const { currentRoute, role, theme } = useSelector((store) => ({
@@ -55,7 +56,8 @@ const App = () => {
         return <UserDashboard />;
       case ROUTES.user.newTodo:
         return <NewTodo />;
-
+      case ROUTES.user.newCategorie:
+        return <NewCategorie />;
       default:
         return null;
     }

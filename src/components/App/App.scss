@@ -18,6 +18,7 @@
       @include mxn.flex;
       gap: 16px;
       justify-content: center;
+      padding: 0 40px;
 
       & > button {
         @include mxn.button($active: false);
@@ -36,31 +37,32 @@
       border-radius: 24px;
     }
   }
-  .box {
-    @include mxn.box;
-    max-width: 350px;
+}
+.box,
+.changePassword {
+  @include mxn.box;
+  max-width: 350px;
 
-    & > form {
+  & > form {
+    @include mxn.flex(column);
+    gap: 32px;
+    padding: 8px 16px 16px 16px;
+
+    & > ul {
       @include mxn.flex(column);
-      gap: 32px;
-      padding: 8px 16px 16px 16px;
-
-      & > ul {
+      gap: 8px;
+      & > li > div {
         @include mxn.flex(column);
         gap: 8px;
-        & > li > div {
-          @include mxn.flex(column);
-          gap: 8px;
-        }
       }
-      & .error {
-        font-size: var(--small-font);
-        color: var(--orange);
-        text-wrap: wrap;
-      }
-      & button {
-        align-self: center;
-      }
+    }
+    & .error {
+      font-size: var(--small-font);
+      color: var(--orange);
+      text-wrap: wrap;
+    }
+    & button {
+      align-self: center;
     }
   }
 }
@@ -71,5 +73,79 @@
 
   & .section {
     padding: 32px;
+    & .block {
+      padding: 24px;
+      border-radius: 0 0 16px 0;
+      box-shadow: 3px 3px 5px -1px var(--grey);
+      & .section__header {
+        @include mxn.flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 16px;
+      }
+      &__title {
+        font-style: italic;
+      }
+      &__exit-button {
+        @include mxn.user-section-button;
+      }
+      &__form {
+        @include mxn.flex(column);
+        gap: 12px;
+
+        & .field {
+          @include mxn.flex;
+          gap: 8px;
+
+          & label {
+            min-width: 100px;
+          }
+          & input,
+          & select {
+            flex: 1 0;
+            min-width: 200px;
+            border-radius: 0 0 12px 0;
+          }
+          & > #color {
+            padding: 0 4px;
+            border-radius: 4px;
+            background: var(--background-color);
+          }
+        }
+        &--button {
+          @include mxn.user-section-button;
+          align-self: center;
+          padding: 8px 16px;
+        }
+        & .selected-box {
+          padding: 4px;
+          box-shadow: var(--border-colorless) var(--boxshadow-color);
+          border-radius: 0 0 16px 0;
+
+          &__element {
+            @include mxn.flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &--user {
+              font-size: var(--small-font);
+              font-style: italic;
+            }
+
+            &--button {
+              @include mxn.user-section-button;
+              font-size: var(--tiny-font);
+            }
+          }
+        }
+      }
+    }
+    & .error {
+      font-size: var(--small-font);
+      font-weight: 500;
+      font-style: italic;
+      color: var(--red);
+      text-wrap: wrap;
+    }
   }
 }

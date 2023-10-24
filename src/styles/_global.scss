@@ -21,6 +21,7 @@ body {
     --primary-color: ;
     --secondary-color: ;
     --tertiary-color: ;
+    --default-color: ;
     --background-color: rgb(36, 34, 34);
   }
 
@@ -35,7 +36,7 @@ body {
       rgba(163, 163, 163, 1) 50%,
       rgba(133, 133, 133, 1) 100%
     );
-    --background-color: rgb(221, 221, 221);
+    --background-color: rgb(255, 255, 255);
   }
 }
 

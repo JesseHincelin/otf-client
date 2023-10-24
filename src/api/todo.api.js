@@ -12,18 +12,20 @@ import { postRequest } from "./requests.api";
 export const newTodoThunk = () => async (dispatch, getStates) => {
   const { loading, titleValue, assignedTo, categorie, dueOnValue, priority, detailsValue } =
     getStates().newTodoState;
-  const { groupe, categories } = getStates().userState;
+  const { groupeMembers, categories } = getStates().userState;
 
   if (loading) return;
   dispatch(startLoading());
 
   const getAssignedId = () => {
+    console.log(assignedTo);
     const assignedIds = [];
-    for (let i = 0; i < groupe.length; i++) {
-      if (assignedTo.includes(groupe[i].title)) {
-        assignedIds.push(groupe[i].id);
+    for (let i = 0; i < groupeMembers.length; i++) {
+      if (assignedTo.includes(groupeMembers[i].userName)) {
+        assignedIds.push(groupeMembers[i].id);
       }
     }
+    console.log(assignedIds);
     return assignedIds;
   };
 
