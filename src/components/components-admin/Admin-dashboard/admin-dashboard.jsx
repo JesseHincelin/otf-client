@@ -3,11 +3,11 @@ import "./admin-dashboard.scss";
 import Tile from "../Tile/tile";
 import { redirect } from "../../../redux/reducers/router.reducer";
 import { ROUTES } from "../../../utils/routes.util";
+import { useEffect, useState } from "react";
+import { screen } from "@testing-library/react";
 
 const AdminDashboard = (props) => {
-  // const { userName, role, firstConection, domain, groupe, theme, todosAssigned } = useSelector(
-  //   (store) => store.userState
-  // );
+  const [screenWidth, setScreenWidth] = useState(getScreenWidth());
 
   const dispatch = useDispatch();
 
@@ -15,53 +15,91 @@ const AdminDashboard = (props) => {
     dispatch(redirect({ route: ROUTES.admin[props] }));
   };
 
+  function getScreenWidth() {
+    return window.innerWidth;
+  }
+  // si j'écrit la fonction précedente sous la forme "const get.. = () => {}",
+  // elle n'est pas accessible au chargement de la page dans le useEffect et
+  // en valeur par defaut pour le useState alors que sous la form
+  // "function get.. (){ }", aucun problème. Garder ça en mémoire !
+
+  useEffect(() => {
+    const updateScreenWidth = () => {
+      setScreenWidth(getScreenWidth());
+    };
+    window.addEventListener("resize", updateScreenWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateScreenWidth);
+    };
+  }, [screenWidth]);
+
   return (
     <div className="admin-dashboard">
-      <ul>
-        <li>
-          <ul>
+      <ul className="tile-list">
+        {screenWidth <= 1045 ? (
+          <>
             <li>
               <Tile
-                content="Delete account"
-                handleTileClick={() => handleFieldClick("deleteAccount")}
-              />
-            </li>
-            <li>
-              <Tile
-                content="Create account"
+                content="Account"
                 handleTileClick={() => handleFieldClick("createAccount")}
               />
             </li>
             <li>
               <Tile
-                content="Edit account"
-                handleTileClick={() => handleFieldClick("editAccount")}
-              />
-            </li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-            <li>
-              <Tile
-                content="Delete groupe"
-                handleTileClick={() => handleFieldClick("deleteGroupe")}
-              />
-            </li>
-            <li>
-              <Tile
-                content="Create groupe"
+                content="Groupe"
                 handleTileClick={() => handleFieldClick("createGroupe")}
               />
             </li>
+          </>
+        ) : (
+          <>
             <li>
-              <Tile
-                content="Edit groupe"
-                handleTileClick={() => handleFieldClick("editGroupe")}
-              />
+              <ul>
+                <li>
+                  <Tile
+                    content="Delete account"
+                    handleTileClick={() => handleFieldClick("deleteAccount")}
+                  />
+                </li>
+                <li>
+                  <Tile
+                    content="Create account"
+                    handleTileClick={() => handleFieldClick("createAccount")}
+                  />
+                </li>
+                <li>
+                  <Tile
+                    content="Edit account"
+                    handleTileClick={() => handleFieldClick("editAccount")}
+                  />
+                </li>
+              </ul>
             </li>
-          </ul>
-        </li>
+            <li>
+              <ul>
+                <li>
+                  <Tile
+                    content="Delete groupe"
+                    handleTileClick={() => handleFieldClick("deleteGroupe")}
+                  />
+                </li>
+                <li>
+                  <Tile
+                    content="Create groupe"
+                    handleTileClick={() => handleFieldClick("createGroupe")}
+                  />
+                </li>
+                <li>
+                  <Tile
+                    content="Edit groupe"
+                    handleTileClick={() => handleFieldClick("editGroupe")}
+                  />
+                </li>
+              </ul>
+            </li>
+          </>
+        )}
         <li>
           <Tile
             content="Reset password"

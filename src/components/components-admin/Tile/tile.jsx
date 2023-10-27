@@ -9,12 +9,12 @@ const Tile = (props) => {
   };
 
   return (
-    <div
+    <button
       className="tile"
       onClick={handleClick}
     >
-      <span className="tile__name">{content}</span>
-    </div>
+      {content}
+    </button>
   );
 };
 

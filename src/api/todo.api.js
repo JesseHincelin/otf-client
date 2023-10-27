@@ -18,7 +18,6 @@ export const newTodoThunk = () => async (dispatch, getStates) => {
   dispatch(startLoading());
 
   const getAssignedId = () => {
-    console.log(assignedTo);
     const assignedIds = [];
     for (let i = 0; i < groupeMembers.length; i++) {
       if (assignedTo.includes(groupeMembers[i].userName)) {

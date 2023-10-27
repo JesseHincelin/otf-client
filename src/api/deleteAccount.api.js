@@ -12,20 +12,16 @@ export const deleteAccountThunk = () => async (dispatch, getStates) => {
   const { loading } = getStates().targetAccountState;
   const { id } = getStates().targetUserState;
 
-  console.log("id to delete in front reducer :", id);
-
   if (loading) return;
   dispatch(startLoading());
 
   const response = await deleteRequest(`admin/delete-account/${id}`, getFromStorage("token"));
 
   if (!!response.error) {
-    console.log(response.error);
     dispatch(setTargetAccountError({ error: response.error }));
   }
 
   if (!!response.result && !!response.result.delete) {
-    console.log(response.result);
     dispatch(resetTargetAccount());
     dispatch(setMessage({ message: response.result.message }));
     dispatch(resetTargetUser());

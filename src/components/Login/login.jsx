@@ -5,7 +5,7 @@ import Button from "../Button/button";
 import "./login.scss";
 import { loginThunk } from "../../api/login.api";
 
-const Login = (props) => {
+const Login = () => {
   const { error, loading, domainValue, userNameValue, passwordValue } = useSelector(
     (store) => store.loginState
   );

@@ -38,7 +38,7 @@ const ResetPassword = () => {
   const handleGenerateClick = (event) => {
     event.preventDefault();
     const password = generateRandPass(20);
-    dispatch(handleFieldChange({ value: password, props: "password" }));
+    dispatch(handleTargetFieldChange({ value: password, props: "password" }));
   };
 
   const handleSearchSubmit = (event) => {

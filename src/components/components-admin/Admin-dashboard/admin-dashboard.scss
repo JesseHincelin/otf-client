@@ -9,6 +9,9 @@
     gap: 32px;
     align-items: center;
 
+    & li > button {
+      color: var(--background-color);
+    }
     & ul {
       @include mxn.flex(column);
       gap: 16px;
@@ -36,6 +39,15 @@
           transform: translateY(0);
         }
       }
+    }
+  }
+
+  @media only screen and (max-width: (1045px)) {
+    padding: 16px 0;
+    .tile-list {
+      @include mxn.flex(column);
+      gap: 8px;
+      align-items: stretch;
     }
   }
 }
