@@ -69,7 +69,8 @@ const App = () => {
   }, []);
 
   return (
-    <div className={!theme ? "App light" : `App ${theme}`}>
+    <div className={!theme ? "app light" : `app ${theme}`}>
+      {/* // <div className="app dark"> */}
       {/* light class name depend on the user setting in their profile */}
       <Header />
       {/* the class "admin" must depend on the role of the user */}

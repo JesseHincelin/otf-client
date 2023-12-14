@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Input from "../../Input/input";
-import { handleFieldChange } from "../../../redux/reducers/createAccount.reducer";
+import {
+  handleFieldChange,
+  setCreateAccountError,
+} from "../../../redux/reducers/createAccount.reducer";
 import Select from "../../Select/select";
 import { ROLE, ROLE_COMPLETE } from "../../../utils/selectOptions.util";
 import Button from "../../Button/button";
@@ -10,7 +13,7 @@ import { createAccountThunk } from "../../../api/createAccount.api";
 import { useEffect } from "react";
 import Popup from "../Popup/popup";
 import { groupesOptions } from "../../../utils/groupe.utils";
-import { generateRandPass } from "../../../utils/global.util";
+import { USER_ROLE, generateRandPass } from "../../../utils/global.util";
 import { contentCopyIcon, generatePassIcon } from "../../../utils/export-icons.utils";
 
 const CreateAccount = (props) => {
@@ -42,7 +45,7 @@ const CreateAccount = (props) => {
 
   const dispatch = useDispatch();
 
-  const domainOption = ["Select the domain :", userDomain]; // a passer par un reducer plus tard
+  const domainOption = [userDomain];
 
   const handleFormChange = (value, props) => {
     dispatch(handleFieldChange({ value, props }));
@@ -61,6 +64,26 @@ const CreateAccount = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(userDomain);
+
+    if (userDomain.role !== USER_ROLE.SUPER_ADMIN) {
+      dispatch(handleFieldChange({ value: userDomain, props: "domainValue" }));
+    }
+    if (userDomain.role === USER_ROLE.SUPER_ADMIN) {
+      if (domainValue === "Select the domain :") {
+        dispatch(setCreateAccountError({ error: "Please, select a domain." }));
+        return;
+      } else {
+        dispatch(setCreateAccountError({ error: "" }));
+      }
+    } else if (groupeValue === "Select a groupe :") {
+      dispatch(setCreateAccountError({ error: "Please, select a groupe" }));
+      return;
+    } else if (role === "Select a role :") {
+      dispatch(setCreateAccountError({ error: "Please, select a role" }));
+      return;
+    }
+    dispatch(setCreateAccountError({ error: "" }));
     dispatch(createAccountThunk());
   };
 
@@ -114,23 +137,27 @@ const CreateAccount = (props) => {
                 {contentCopyIcon()}
               </button>
             </li>
-            <li>
-              <Select
-                className="domain"
-                options={domainOption}
-                id="domain"
-                label="Domain :"
-                required={true}
-                disabled={loading}
-                handleSelectChange={(value) => handleFormChange(value, "domainValue")}
-              />
-            </li>
+            {userDomain.role === USER_ROLE.SUPER_ADMIN && (
+              <li>
+                <Select
+                  className="domain"
+                  options={domainOption}
+                  id="domain"
+                  label="Domain :"
+                  value={domainValue}
+                  required={true}
+                  disabled={loading}
+                  handleSelectChange={(value) => handleFormChange(value, "domainValue")}
+                />
+              </li>
+            )}
             <li>
               <Select
                 className="groupe"
                 options={groupesOptions(groupes, "Select a groupe :")}
                 id="groupe"
                 label="Groupe :"
+                value={groupeValue}
                 required={true}
                 disabled={loading}
                 handleSelectChange={(value) => handleFormChange(value, "groupeValue")}
@@ -142,6 +169,7 @@ const CreateAccount = (props) => {
                 options={userRole !== "super admin" ? ROLE : ROLE_COMPLETE}
                 id="role"
                 label="Role :"
+                value={role}
                 required={true}
                 disabled={loading}
                 handleSelectChange={(value) => handleFormChange(value, "role")}

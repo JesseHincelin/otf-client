@@ -15,21 +15,37 @@ body {
   line-height: 1.618;
   font-size: calc(1.2rem + 0.6vmin);
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  & #root {
+    flex: 1 0;
+    display: flex;
+    flex-direction: column;
+  }
 
   .dark {
     // need to establish a color theme for the dark theme
-    --primary-color: ;
-    --secondary-color: ;
-    --tertiary-color: ;
-    --default-color: ;
-    --background-color: rgb(36, 34, 34);
+    --primary-color: rgb(22, 22, 22);
+    --secondary-color: #7c603c;
+    --tertiary-color: #fdb329;
+    --default-color: linear-gradient(
+      115deg,
+      rgb(50, 50, 50) 0%,
+      rgb(40, 40, 40) 50%,
+      rgb(30, 30, 30) 100%
+    );
+    --background-color: rgb(60, 60, 60);
+    --text-color: rgba(255, 255, 255, 0.86);
+    --user-nav-text-color: rgba(255, 255, 255, 0.86);
   }
 
   .light {
     // need to establish a color theme for the light theme (by default)
     --primary-color: #102c57;
     --secondary-color: #f2c58e;
-    --tertiary-color: ;
+    --tertiary-color: #f25e00;
     --default-color: linear-gradient(
       115deg,
       rgba(196, 196, 196, 1) 0%,
@@ -37,6 +53,8 @@ body {
       rgba(133, 133, 133, 1) 100%
     );
     --background-color: rgb(255, 255, 255);
+    --text-color: rgba(255, 255, 255, 0.86);
+    --user-nav-text-color: #102c57;
   }
 }
 

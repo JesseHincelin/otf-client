@@ -195,15 +195,17 @@ const NewTodo = () => {
             disabled={loading}
             handleSelectChange={(value) => handleFormChange(value, "priority")}
           />
-          <Select
-            className="new-todo__form--group"
-            options={YES_NO}
-            id="group"
-            label="Group task :"
-            required={true}
-            disabled={loading}
-            handleSelectChange={(value) => handleFormChange(value, "groupeTask")}
-          />
+          {role !== USER_ROLE.STAFF && (
+            <Select
+              className="new-todo__form--group"
+              options={YES_NO}
+              id="group"
+              label="Group task :"
+              required={true}
+              disabled={loading}
+              handleSelectChange={(value) => handleFormChange(value, "groupeTask")}
+            />
+          )}
           <Select
             className="new-todo__form--categorie"
             options={getCategories()}
@@ -213,14 +215,29 @@ const NewTodo = () => {
             disabled={loading}
             handleSelectChange={(value) => handleCategorieChange(value, "categorie")}
           />
-          <Input
+          {/* <Input
             className="new-todo__form--details"
             id="details"
             label="Details :"
             value={detailsValue}
             disabled={loading}
             handleInputChange={(value) => handleFormChange(value, "detailsValue")}
-          />
+          /> */}
+          <div className="textarea__container field">
+            <label
+              htmlFor="details"
+              className="label textarea__label"
+            >
+              Details :
+            </label>
+            <textarea
+              className="new-todo__form--details textarea"
+              id="details"
+              value={detailsValue}
+              disabled={loading}
+              onChange={(e) => handleFormChange(e.target.value, "detailsValue")}
+            ></textarea>
+          </div>
           {role === USER_ROLE.SUPERVISOR ? (
             <>
               <Select

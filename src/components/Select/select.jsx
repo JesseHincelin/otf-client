@@ -1,7 +1,7 @@
 import "./select.scss";
 
 const Select = (props) => {
-  const { className, options, id, label, required, disabled, handleSelectChange } = props;
+  const { className, options, id, label, value, required, disabled, handleSelectChange } = props;
 
   return (
     <div className={!className ? "field" : `field ${className}--field`}>
@@ -14,6 +14,7 @@ const Select = (props) => {
       <select
         name={id}
         id={id}
+        value={value}
         className={!className ? "select" : `select ${className}--select`}
         required={!!required}
         disabled={!!disabled}
@@ -23,9 +24,10 @@ const Select = (props) => {
           ? options.map((e, i) => (
               <option
                 key={`${id}_${i}`}
-                value={i === 0 ? "" : e}
-                disabled={i === 0 ? true : false}
-                selected={i === 0 ? true : false}
+                value={e}
+                // value={i === 0 ? "" : e}
+                // disabled={i === 0 ? true : false}
+                // selected={i === 0 ? true : false}
               >
                 {e}
               </option>

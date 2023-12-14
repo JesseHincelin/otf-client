@@ -8,19 +8,32 @@ import AccountNav from "../account-nav/account-nav";
 import { useEffect } from "react";
 import "./delete-account.scss";
 import Popup from "../Popup/popup";
+import { USER_ROLE } from "../../../utils/global.util";
 
 const DeleteAccount = () => {
-  const { error, loading, userNameValue, domainValue, id, userName, role, activePopup } =
-    useSelector((store) => ({
-      error: store.targetAccountState.error,
-      loading: store.targetAccountState.loading,
-      userNameValue: store.targetAccountState.userNameValue,
-      domainValue: store.targetAccountState.domainValue,
-      id: store.targetUserState.id,
-      userName: store.targetUserState.userName,
-      role: store.targetUserState.role,
-      activePopup: store.popupState.activePopup,
-    }));
+  const {
+    error,
+    loading,
+    userNameValue,
+    domainValue,
+    id,
+    userName,
+    role,
+    activePopup,
+    userRole,
+    userDomain,
+  } = useSelector((store) => ({
+    error: store.targetAccountState.error,
+    loading: store.targetAccountState.loading,
+    userNameValue: store.targetAccountState.userNameValue,
+    domainValue: store.targetAccountState.domainValue,
+    id: store.targetUserState.id,
+    userName: store.targetUserState.userName,
+    role: store.targetUserState.role,
+    activePopup: store.popupState.activePopup,
+    userRole: store.userState.role,
+    userDomain: store.userState.domain,
+  }));
 
   const dispatch = useDispatch();
 
@@ -30,6 +43,9 @@ const DeleteAccount = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+    if (userRole !== USER_ROLE.SUPER_ADMIN) {
+      dispatch(handleFieldChange({ value: userDomain, props: "domainValue" }));
+    }
     dispatch(searchUserThunk());
   };
 
@@ -53,17 +69,19 @@ const DeleteAccount = () => {
           onSubmit={handleSearchSubmit}
         >
           <ul>
-            <li>
-              <Input
-                className="search__form--domain"
-                id="domain"
-                label="Domain :"
-                value={domainValue}
-                disabled={loading}
-                required={true}
-                handleInputChange={(value) => handleFormChange(value, "domainValue")}
-              />
-            </li>
+            {userRole === USER_ROLE.SUPER_ADMIN && (
+              <li>
+                <Input
+                  className="search__form--domain"
+                  id="domain"
+                  label="Domain :"
+                  value={domainValue}
+                  disabled={loading}
+                  required={true}
+                  handleInputChange={(value) => handleFormChange(value, "domainValue")}
+                />
+              </li>
+            )}
             <li>
               <Input
                 className="search__form--userName"

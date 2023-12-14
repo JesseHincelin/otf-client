@@ -4,13 +4,13 @@
   @include mxn.flex;
   justify-content: space-between;
   align-items: center;
-  background: #102c57;
+  background: var(--primary-color);
   padding: 16px;
 
   &__title {
     @include mxn.flex(column);
     line-height: 1;
-    color: white;
+    color: var(--text-color);
     align-items: center;
     &--first {
       font-size: calc(3.2rem + 0.6vmin);
@@ -27,7 +27,7 @@
         height: 1px;
         width: 150%;
         border-radius: 5px;
-        background: white;
+        background: var(--text-color);
       }
       &:after {
         content: "";
@@ -37,7 +37,7 @@
         height: 1px;
         width: 150%;
         border-radius: 5px;
-        background: white;
+        background: var(--text-color);
       }
     }
   }

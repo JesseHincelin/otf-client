@@ -34,8 +34,8 @@ export const editAccountThunk = () => async (dispatch, getStates) => {
 
   if (!!response.result && !!response.result.user) {
     dispatch(resetTargetUser());
-    dispatch(setTargetUser({ user: response.result.user }));
+    // dispatch(setTargetUser({ user: response.result.user }));
     dispatch(setMessage({ message: response.result.message }));
-    dispatch(resetTargetAccount);
+    dispatch(resetTargetAccount());
   }
 };

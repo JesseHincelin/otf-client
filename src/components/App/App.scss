@@ -1,151 +1,169 @@
 @use "../../styles/mixins" as mxn;
 
-.admin {
-  @include mxn.flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding-top: 16px;
-  width: 100%;
-  position: relative;
+.app {
+  background: var(--background-color);
+  flex: 1 0;
+  min-height: 100%;
 
-  &__block {
-    @include mxn.flex(column);
-    align-items: center;
+  .admin {
+    @include mxn.flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 16px;
+    width: 100%;
+    position: relative;
+    background: var(--background-color);
 
-    .account__nav,
-    .groupe__nav {
-      @include mxn.flex;
-      gap: 16px;
-      justify-content: center;
-      padding: 0 40px;
+    &__block {
+      @include mxn.flex(column);
+      align-items: center;
 
-      & > button {
+      .account__nav,
+      .groupe__nav {
+        @include mxn.flex;
+        gap: 16px;
+        justify-content: center;
+        padding: 0 40px;
+
+        & > button {
+          @include mxn.button($active: false);
+        }
+        .active {
+          @include mxn.button($active: true);
+        }
+      }
+      .account__nav--exit--button,
+      .groupe__nav--exit--button {
         @include mxn.button($active: false);
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        padding: 0 8px;
+        border-radius: 24px;
       }
-      .active {
-        @include mxn.button($active: true);
-      }
-    }
-    .account__nav--exit--button,
-    .groupe__nav--exit--button {
-      @include mxn.button($active: false);
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      padding: 0 8px;
-      border-radius: 24px;
     }
   }
-}
-.box,
-.changePassword {
-  @include mxn.box;
-  max-width: 350px;
+  .box,
+  .changePassword {
+    @include mxn.box;
+    max-width: 350px;
 
-  & > form {
-    @include mxn.flex(column);
-    gap: 32px;
-    padding: 8px 16px 16px 16px;
-
-    & > ul {
+    & > form {
       @include mxn.flex(column);
-      gap: 8px;
-      & > li > div {
+      gap: 32px;
+      padding: 8px 16px 16px 16px;
+
+      & > ul {
         @include mxn.flex(column);
         gap: 8px;
+        & > li > div {
+          @include mxn.flex(column);
+          gap: 8px;
+        }
       }
-    }
-    & .error {
-      font-size: var(--small-font);
-      color: var(--orange);
-      text-wrap: wrap;
-    }
-    & button {
-      align-self: center;
+      & .error {
+        font-size: var(--small-font);
+        color: var(--tertiary-color);
+        text-wrap: wrap;
+      }
+      // & button {
+      //   align-self: center;
+      // }
     }
   }
-}
 
-.user {
-  @include mxn.flex(column);
-  align-items: center;
+  .user {
+    @include mxn.flex(column);
+    align-items: center;
+    background: var(--background-color);
 
-  & .section {
-    padding: 32px;
-    & .block {
-      padding: 24px;
-      border-radius: 0 0 16px 0;
-      box-shadow: 3px 3px 5px -1px var(--grey);
-      & .section__header {
-        @include mxn.flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-bottom: 16px;
-      }
-      &__title {
-        font-style: italic;
-      }
-      &__exit-button {
-        @include mxn.user-section-button;
-      }
-      &__form {
-        @include mxn.flex(column);
-        gap: 12px;
-
-        & .field {
+    & .section {
+      padding: 32px;
+      flex: 1 0;
+      & .block {
+        padding: 24px;
+        border-radius: 0 0 16px 0;
+        box-shadow: 3px 3px 5px -1px var(--grey);
+        & .section__header {
           @include mxn.flex;
-          gap: 8px;
-
-          & label {
-            min-width: 100px;
-          }
-          & input,
-          & select {
-            flex: 1 0;
-            min-width: 200px;
-            border-radius: 0 0 12px 0;
-          }
-          & > #color {
-            padding: 0 4px;
-            border-radius: 4px;
-            background: var(--background-color);
-          }
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 16px;
         }
-        &--button {
+        &__title {
+          font-style: italic;
+          color: var(--text-color);
+        }
+        &__exit-button {
           @include mxn.user-section-button;
-          align-self: center;
-          padding: 8px 16px;
         }
-        & .selected-box {
-          padding: 4px;
-          box-shadow: var(--border-colorless) var(--boxshadow-color);
-          border-radius: 0 0 16px 0;
+        &__form {
+          @include mxn.flex(column);
+          gap: 12px;
 
-          &__element {
+          & .field {
             @include mxn.flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 8px;
 
-            &--user {
-              font-size: var(--small-font);
-              font-style: italic;
+            & label {
+              min-width: 100px;
+              color: var(--text-color);
             }
+            & input,
+            & select {
+              flex: 1 0;
+              min-width: 200px;
+              border-radius: 0 0 12px 0;
+            }
+            & .textarea {
+              flex: 1 0;
+              min-width: 200px;
+              border-radius: 0 0 8px 0;
+              padding: 4px;
+              border: none;
+            }
+            & > #color {
+              padding: 0 4px;
+              border-radius: 4px;
+              background: var(--background-color);
+            }
+          }
+          &--button {
+            @include mxn.user-section-button;
+            align-self: center;
+            padding: 8px 16px;
+          }
+          & .selected-box {
+            padding: 4px;
+            box-shadow: var(--border-colorless) var(--boxshadow-color);
+            border-radius: 0 0 16px 0;
 
-            &--button {
-              @include mxn.user-section-button;
-              font-size: var(--tiny-font);
+            &__element {
+              @include mxn.flex;
+              justify-content: space-between;
+              align-items: center;
+
+              &--user {
+                font-size: var(--small-font);
+                font-style: italic;
+              }
+
+              &--button {
+                @include mxn.user-section-button;
+                font-size: var(--tiny-font);
+              }
             }
           }
         }
       }
-    }
-    & .error {
-      font-size: var(--small-font);
-      font-weight: 500;
-      font-style: italic;
-      color: var(--red);
-      text-wrap: wrap;
+      & .error {
+        font-size: var(--small-font);
+        font-weight: 500;
+        font-style: italic;
+        color: var(--tertiary-color);
+        text-wrap: wrap;
+      }
     }
   }
 }

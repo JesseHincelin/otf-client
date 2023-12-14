@@ -7,20 +7,33 @@ import { handleTargetFieldChange } from "../../../redux/reducers/targetUser.redu
 import { resetPasswordThunk } from "../../../api/resetPassword.api";
 import AccountNav from "../account-nav/account-nav";
 import "./reset-password.scss";
-import { generateRandPass } from "../../../utils/global.util";
+import { USER_ROLE, generateRandPass } from "../../../utils/global.util";
+import Popup from "../Popup/popup";
 
 const ResetPassword = () => {
-  const { error, loading, userNameValue, domainValue, id, userName, password } = useSelector(
-    (store) => ({
-      error: store.targetAccountState.error,
-      loading: store.targetAccountState.loading,
-      userNameValue: store.targetAccountState.userNameValue,
-      domainValue: store.targetAccountState.domainValue,
-      id: store.targetUserState.id,
-      userName: store.targetUserState.userName,
-      password: store.targetUserState.password,
-    })
-  );
+  const {
+    error,
+    loading,
+    userNameValue,
+    domainValue,
+    id,
+    userName,
+    password,
+    role,
+    domain,
+    activePopup,
+  } = useSelector((store) => ({
+    error: store.targetAccountState.error,
+    loading: store.targetAccountState.loading,
+    userNameValue: store.targetAccountState.userNameValue,
+    domainValue: store.targetAccountState.domainValue,
+    id: store.targetUserState.id,
+    userName: store.targetUserState.userName,
+    password: store.targetUserState.password,
+    role: store.userState.role,
+    domain: store.userState.domain,
+    activePopup: store.popupState.activePopup,
+  }));
   const dispatch = useDispatch();
 
   const handleFormChange = (value, props) => {
@@ -43,6 +56,9 @@ const ResetPassword = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+    if (role !== USER_ROLE.SUPER_ADMIN) {
+      dispatch(handleFieldChange({ value: domain, props: "domainValue" }));
+    }
     dispatch(searchUserThunk());
   };
 
@@ -62,17 +78,19 @@ const ResetPassword = () => {
           onSubmit={handleSearchSubmit}
         >
           <ul>
-            <li>
-              <Input
-                className="search__form--domain"
-                id="domain"
-                label="Domain :"
-                value={domainValue}
-                disabled={loading}
-                required={true}
-                handleInputChange={(value) => handleFormChange(value, "domainValue")}
-              />
-            </li>
+            {role === USER_ROLE.SUPER_ADMIN && (
+              <li>
+                <Input
+                  className="search__form--domain"
+                  id="domain"
+                  label="Domain :"
+                  value={domainValue}
+                  disabled={loading}
+                  required={true}
+                  handleInputChange={(value) => handleFormChange(value, "domainValue")}
+                />
+              </li>
+            )}
             <li>
               <Input
                 className="search__form--userName"
@@ -160,6 +178,7 @@ const ResetPassword = () => {
           />
         </form>
       </div>
+      {!!activePopup && <Popup />}
     </div>
   );
 };

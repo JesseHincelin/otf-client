@@ -5,9 +5,9 @@ const CREATE_ACCOUNT_STATE = {
   loading: false,
   userNameValue: "",
   passwordValue: "",
-  domainValue: "",
-  groupeValue: "",
-  role: "",
+  domainValue: "Select the domain :",
+  groupeValue: "Select a groupe :",
+  role: "Select a role :",
 };
 
 const getInitialState = () => CREATE_ACCOUNT_STATE;

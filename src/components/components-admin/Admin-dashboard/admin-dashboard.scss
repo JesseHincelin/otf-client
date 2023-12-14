@@ -10,7 +10,7 @@
     align-items: center;
 
     & li > button {
-      color: var(--background-color);
+      color: var(--text-color);
     }
     & ul {
       @include mxn.flex(column);
